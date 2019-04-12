@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 USERS = np.array([["User", 1], ["1", 200], ["2", 47]])
-LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 100], ["BICEPS_CURLS", 100], ["REVERSE_CURLS", 47]])
+LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 100], ["BICEPS_CURLS", 50], ["TRICEPS_DRUECKEN", 50], ["REVERSE_CURLS", 47]])
 NEW_HEADER = np.array([["Time","ElbowFlexion", "ElbowSupination", "ShoulderFlexion", "ShoulderAbduction", "ShoulderRotation", "User", "Label"]])
 
 def readCSV(path):
