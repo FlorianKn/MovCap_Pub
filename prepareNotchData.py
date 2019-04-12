@@ -2,9 +2,10 @@ import numpy as np
 import pandas as pd
 
 LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 247]])
+NEW_HEADER = np.array([["Time","ElbowFlexion", "ElbowSupination", "ShoulderFlexion", "ShoulderAbduction", "ShoulderRotation", "Label"]])
 
 def readCSV(path):
-    arr = np.genfromtxt(path, delimiter=',', dtype=None, encoding=None)
+    arr = np.genfromtxt(path, delimiter=',', dtype=None)#, encoding=None)
     return arr
 
 # Concat column wise
@@ -12,6 +13,12 @@ def concatArrays(arr1, arr2):
     concArr = np.concatenate((arr1, arr2), axis=1)
     return concArr
 
+# Concat row wise
+def concatArraysRow(arr1, arr2):
+    concArr = np.concatenate((arr1, arr2), axis=0)
+    return concArr
+
+# Add labels
 def addLabels():
     arr = np.array([])
 
@@ -26,6 +33,10 @@ def addLabels():
 # Delete second "time" column
 def deleteCol(arr):
     return np.delete(arr,(3), axis=1)
+
+# Delete old header
+def deleteHeader(arr):
+    return np.delete(arr,(0), axis=0)
 
 def writeCsv(arr):
     df = pd.DataFrame(arr);
@@ -58,8 +69,11 @@ def main():
     labels = To2d(labels)
 
     array = appendCol(array, labels)
+    array = deleteHeader(array)
+    # Set new header here
+    array = concatArraysRow(NEW_HEADER, array)
     writeCsv(array);
-        
+
     deleteFirstLine();
     print "Success"
 main()
