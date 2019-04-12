@@ -4,7 +4,7 @@ import pandas as pd
 LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 247]])
 
 def readCSV(path):
-    arr = np.genfromtxt(path, delimiter=',', dtype=None)
+    arr = np.genfromtxt(path, delimiter=',', dtype=None, encoding=None)
     return arr
 
 # Concat column wise
@@ -39,6 +39,14 @@ def appendCol(arr1, arr2):
 def To2d(arr):
     return np.reshape(arr, (-1, 1));
 
+# Delte indices of first line
+def deleteFirstLine():
+    with open('data/data.csv', 'r') as fin:
+        data = fin.read().splitlines(True)
+    with open('data/data.csv', 'w') as fout:
+        fout.writelines(data[1:])
+
+
 def main():
     arr1 = readCSV("data/Angles_LeftElbow.csv");
     arr2 = readCSV("data/Angles_LeftShoulder.csv");
@@ -50,6 +58,8 @@ def main():
     labels = To2d(labels)
 
     array = appendCol(array, labels)
-    writeCsv(array)
+    writeCsv(array);
+        
+    deleteFirstLine();
     print "Success"
 main()
