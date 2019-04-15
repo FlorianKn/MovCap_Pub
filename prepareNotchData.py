@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
 
+USERS = np.array([["User", 1], ["1", 200], ["2", 47]])
 LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 247]])
-NEW_HEADER = np.array([["Time","ElbowFlexion", "ElbowSupination", "ShoulderFlexion", "ShoulderAbduction", "ShoulderRotation", "Label"]])
+NEW_HEADER = np.array([["Time","ElbowFlexion", "ElbowSupination", "ShoulderFlexion", "ShoulderAbduction", "ShoulderRotation", "User", "Label"]])
 
 def readCSV(path):
     arr = np.genfromtxt(path, delimiter=',', dtype=None)#, encoding=None)
@@ -18,11 +19,11 @@ def concatArraysRow(arr1, arr2):
     concArr = np.concatenate((arr1, arr2), axis=0)
     return concArr
 
-# Add labels
-def addLabels():
+# Add labels or users
+def addLabUsr(ARR):
     arr = np.array([])
 
-    for label, num in LABELS:
+    for label, num in ARR:
         x = 0;
         r = np.fromstring(num, dtype=int, sep=',')
         for x in range(0, r):
@@ -65,9 +66,12 @@ def main():
     array = concatArrays(arr1, arr2);
     array = deleteCol(array);
 
-    labels = addLabels();
+    users = addLabUsr(USERS);
+    users = To2d(users)
+    labels = addLabUsr(LABELS);
     labels = To2d(labels)
 
+    array = appendCol(array, users)
     array = appendCol(array, labels)
     array = deleteHeader(array)
     # Set new header here
