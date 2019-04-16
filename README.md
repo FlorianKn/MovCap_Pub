@@ -5,4 +5,4 @@ Capture and classify movements with NN
 ![Fig1](data/fig/fig1.png)  
 
 `python -c "from plot import plotActivity; print plotActivity('HAMMER_CURLS')"`  
-![Fig1](data/fig/fig2.png) 
+![Fig2](data/fig/fig2.png) 
