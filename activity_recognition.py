@@ -183,7 +183,7 @@ if __name__ == '__main__':
     plt.ylabel('Training Progress (Loss or Accuracy values)')
     plt.xlabel('Training Epoch')
     plt.ylim(0)
-    error_plot.savefig('error_plot.png')
+    error_plot.savefig('data/fig/error_plot.png')
     #plt.show()
 
     pickle.dump(predictions, open("predictions.p", "wb"))
