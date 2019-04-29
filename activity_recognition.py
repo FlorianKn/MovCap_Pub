@@ -90,7 +90,7 @@ if __name__ == '__main__':
     # LOAD DATA
     data = pd.read_csv(DATA_PATH, header=None, names=COLUMN_NAMES)
     data = data.dropna()
-
+    data = data.iloc[1:]
     # DATA PREPROCESSING
     data_convoluted = []
     labels = []
