@@ -1,65 +1,52 @@
 package com.example.harapp;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener, TextToSpeech.OnInitListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final int N_SAMPLES = 200;
-    private static List<Float> x;
-    private static List<Float> y;
-    private static List<Float> z;
+    private static List<Float> ElbowFlexion;
+    private static List<Float> ElbowSupination;
+    private static List<Float> ShoulderFlexion;
+    private static List<Float> ShoulderAbduction;
+    private static List<Float> ShoulderRotation;
 
-    private TextView downstairsTextView;
-    private TextView joggingTextView;
-    private TextView sittingTextView;
-    private TextView standingTextView;
-    private TextView upstairsTextView;
-    private TextView walkingTextView;
-    private TextToSpeech textToSpeech;
+    private TextView Hammer_TextView;
+    private TextView Biceps_TextView;
+    private TextView Triceps_TextView;
+    private TextView Reverse_TextView;
+
     private float[] results;
     private TensorFlowClassifier classifier;
 
-    private String[] labels = {"Downstairs", "Jogging", "Sitting", "Standing", "Upstairs", "Walking"};
+    private String[] labels = {"HAMMER_CURLS", "BICEPS_CURLS", "TRICEPS_DRUECKEN", "REVERSE_CURLS"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        x = new ArrayList<>();
-        y = new ArrayList<>();
-        z = new ArrayList<>();
+        ElbowFlexion = new ArrayList<>();
+        ElbowSupination = new ArrayList<>();
+        ShoulderFlexion = new ArrayList<>();
+        ShoulderAbduction = new ArrayList<>();
+        ShoulderRotation = new ArrayList<>();
 
-        downstairsTextView = (TextView) findViewById(R.id.downstairs_prob);
-        joggingTextView = (TextView) findViewById(R.id.jogging_prob);
-        sittingTextView = (TextView) findViewById(R.id.sitting_prob);
-        standingTextView = (TextView) findViewById(R.id.standing_prob);
-        upstairsTextView = (TextView) findViewById(R.id.upstairs_prob);
-        walkingTextView = (TextView) findViewById(R.id.walking_prob);
+        Hammer_TextView = (TextView) findViewById(R.id.hammer_prob);
+        Biceps_TextView = (TextView) findViewById(R.id.bicurls_prob);
+        Triceps_TextView = (TextView) findViewById(R.id.tricurls_prob);
+        Reverse_TextView = (TextView) findViewById(R.id.reverse_prob);
 
-        classifier = new TensorFlowClassifier(getApplicationContext());
+         // TODO: Fix bug in TensorFlowClassifier.class
+        //classifier = new TensorFlowClassifier(getApplicationContext());
 
-        textToSpeech = new TextToSpeech(this, this);
-        textToSpeech.setLanguage(Locale.US);
     }
 
-    @Override
+    /*@Override
     public void onInit(int status) {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -83,48 +70,36 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }, 2000, 5000);
     }
 
-    protected void onPause() {
-        getSensorManager().unregisterListener(this);
-        super.onPause();
-    }
-
-    protected void onResume() {
-        super.onResume();
-        getSensorManager().registerListener(this, getSensorManager().getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
-    }
-
     @Override
     public void onSensorChanged(SensorEvent event) {
         activityPrediction();
         x.add(event.values[0]);
         y.add(event.values[1]);
         z.add(event.values[2]);
-    }
+    }*/
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-
-    }
 
     private void activityPrediction() {
-        if (x.size() == N_SAMPLES && y.size() == N_SAMPLES && z.size() == N_SAMPLES) {
+        if (ElbowFlexion.size() == N_SAMPLES && ElbowSupination.size() == N_SAMPLES && ShoulderFlexion.size() == N_SAMPLES && ShoulderAbduction.size() == N_SAMPLES && ShoulderRotation.size() == N_SAMPLES) {
             List<Float> data = new ArrayList<>();
-            data.addAll(x);
-            data.addAll(y);
-            data.addAll(z);
+            data.addAll(ElbowFlexion);
+            data.addAll(ElbowSupination);
+            data.addAll(ShoulderFlexion);
+            data.addAll(ShoulderAbduction);
+            data.addAll(ShoulderRotation);
 
             results = classifier.predictProbabilities(toFloatArray(data));
 
-            downstairsTextView.setText(Float.toString(round(results[0], 2)));
-            joggingTextView.setText(Float.toString(round(results[1], 2)));
-            sittingTextView.setText(Float.toString(round(results[2], 2)));
-            standingTextView.setText(Float.toString(round(results[3], 2)));
-            upstairsTextView.setText(Float.toString(round(results[4], 2)));
-            walkingTextView.setText(Float.toString(round(results[5], 2)));
+            Hammer_TextView.setText(Float.toString(round(results[0], 2)));
+            Biceps_TextView.setText(Float.toString(round(results[1], 2)));
+            Triceps_TextView.setText(Float.toString(round(results[2], 2)));
+            Reverse_TextView.setText(Float.toString(round(results[3], 2)));
 
-            x.clear();
-            y.clear();
-            z.clear();
+            ElbowFlexion.clear();
+            ElbowSupination.clear();
+            ShoulderFlexion.clear();
+            ShoulderAbduction.clear();
+            ShoulderRotation.clear();
         }
     }
 
@@ -143,9 +118,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
     }
-
-    private SensorManager getSensorManager() {
-        return (SensorManager) getSystemService(SENSOR_SERVICE);
-    }
-
 }

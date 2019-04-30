@@ -7,6 +7,7 @@ import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
 public class TensorFlowClassifier {
     static {
+        // TODO: Fix bug here
         System.loadLibrary("tensorflow_inference");
     }
     /* USE:
@@ -15,8 +16,7 @@ public class TensorFlowClassifier {
     * */
 
     private TensorFlowInferenceInterface inferenceInterface;
-    private static final String MODEL_FILE = "file:///android_asset/frozen_model.pb";
-    //    private static final String MODEL_FILE = "file:///android_asset/frozen_har.pb";
+    private static final String MODEL_FILE = "converted_model.tflite";
     private static final String INPUT_NODE = "inputs";
     private static final String[] OUTPUT_NODES = {"y_"};
     private static final String OUTPUT_NODE = "y_";
@@ -33,7 +33,7 @@ public class TensorFlowClassifier {
         inferenceInterface.run(OUTPUT_NODES);
         inferenceInterface.fetch(OUTPUT_NODE, result);
 
-        //Downstairs	Jogging	  Sitting	Standing	Upstairs	Walking
+        //HAMMER_CURLS, BICEPS_CURLS, TRICEPS_DRUECKEN, REVERSE_CURLS
         return result;
     }
 }
