@@ -19,7 +19,8 @@ Afterwards run `python prepareNotchData.py`.
 Run `python activity_recognition.py` to train and test model.  
 
 ## Export model to Android  
-Run `pythonfreezeModel.py` to freeze the model.  
-Run `tfLiteConverter.py` to convert the model to .tflite.
+Run `python freezeModel.py` to freeze the model.  
+Run `python tfLiteConverter.py` to convert the model to `.tflite`.  
+  
 The TensorFlow Lite Architecture can be seen below:  
-![LightArchitecture](data/fig/tflite-architecture.jpg)
+![LightArchitecture](data/fig/tflite-architecture.jpg =80x100)
