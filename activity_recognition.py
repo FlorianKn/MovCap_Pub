@@ -90,7 +90,7 @@ if __name__ == '__main__':
     # LOAD DATA
     data = pd.read_csv(DATA_PATH, header=None, names=COLUMN_NAMES)
     data = data.dropna()
-
+    data = data.iloc[1:]
     # DATA PREPROCESSING
     data_convoluted = []
     labels = []
@@ -185,7 +185,8 @@ if __name__ == '__main__':
     plt.ylim(0)
     error_plot.savefig('data/fig/error_plot.png')
     #plt.show()
-
+    
+    # Save model
     pickle.dump(predictions, open("predictions.p", "wb"))
     pickle.dump(history, open("history.p", "wb"))
     tf.train.write_graph(sess.graph_def, '.', './checkpoint/har.pbtxt')  
