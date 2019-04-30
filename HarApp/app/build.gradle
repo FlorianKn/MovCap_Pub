@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.harapp"
