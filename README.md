@@ -14,9 +14,12 @@ USERS = np.array([["User", 1], ["1", 200], ["2", 47]])
 LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 100], ["BICEPS_CURLS", 50], ["TRICEPS_DRUECKEN", 50], ["REVERSE_CURLS", 47]])  
 # ["Label", number of rows Label should be attached to]
 ```  
-Afterwards run `python prepareNotchData.py`  
+Afterwards run `python prepareNotchData.py`.  
 ## Train model  
-Run `python activity_recognition.py` to train and test model  
+Run `python activity_recognition.py` to train and test model.  
 
 ## Export model to Android  
-Run `python export_toAndroid.py` to freeze the model.
+Run `pythonfreezeModel.py` to freeze the model.  
+Run `tfLiteConverter.py` to convert the model to .tflite.
+The TensorFlow Lite Architecture can be seen below:  
+![LightArchitecture](data/fig/tflite-architecture.jpg)
