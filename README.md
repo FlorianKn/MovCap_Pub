@@ -23,4 +23,5 @@ Run `python freezeModel.py` to freeze the model.
 Run `python tfLiteConverter.py` to convert the model to `.tflite`.  
   
 The TensorFlow Lite Architecture can be seen below:  
-![tflite-architecture](data/fig/tflite-architecture.jpg)
+![tflite-architecture](data/fig/tflite-architecture.jpg)  
+Source: https://www.tensorflow.org/lite/guide
