@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
         Triceps_TextView = (TextView) findViewById(R.id.tricurls_prob);
         Reverse_TextView = (TextView) findViewById(R.id.reverse_prob);
 
-         // TODO: Fix bug in TensorFlowClassifier.class
-        //classifier = new TensorFlowClassifier(getApplicationContext());
-
+        classifier = new TensorFlowClassifier(this);
+        addValue();
+        activityPrediction();
     }
 
     /*@Override
@@ -117,5 +117,20 @@ public class MainActivity extends AppCompatActivity {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
+    }
+
+    void addValue(){
+
+        for(int i = 0; i < 200; i++){
+            ElbowFlexion.add((float) 0.81);
+            ElbowSupination.add((float) 0.17);
+            ShoulderFlexion.add((float) 0.08);
+            ShoulderAbduction.add((float) 0.05);
+            ShoulderRotation.add((float) 0.48);
+        }
+
+
+        System.out.println("---------------------");
+        System.out.println(ElbowFlexion);
     }
 }
