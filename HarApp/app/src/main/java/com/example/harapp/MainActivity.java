@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int N_SAMPLES = 200;
+    private static final int N_SAMPLES = 180;
     private static List<Float> ElbowFlexion;
     private static List<Float> ElbowSupination;
     private static List<Float> ShoulderFlexion;
@@ -43,42 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         classifier = new TensorFlowClassifier(this);
         addValue();
-        System.out.println("Here");
+
         activityPrediction();
     }
-
-    /*@Override
-    public void onInit(int status) {
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void run() {
-                if (results == null || results.length == 0) {
-                    return;
-                }
-                float max = -1;
-                int idx = -1;
-                for (int i = 0; i < results.length; i++) {
-                    if (results[i] > max) {
-                        idx = i;
-                        max = results[i];
-                    }
-                }
-
-                textToSpeech.speak(labels[idx], TextToSpeech.QUEUE_ADD, null, Integer.toString(new Random().nextInt()));
-            }
-        }, 2000, 5000);
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        activityPrediction();
-        x.add(event.values[0]);
-        y.add(event.values[1]);
-        z.add(event.values[2]);
-    }*/
-
 
     private void activityPrediction() {
         if (ElbowFlexion.size() == N_SAMPLES && ElbowSupination.size() == N_SAMPLES && ShoulderFlexion.size() == N_SAMPLES && ShoulderAbduction.size() == N_SAMPLES && ShoulderRotation.size() == N_SAMPLES) {
@@ -121,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void addValue(){
-        for(int i = 0; i < 200; i++){
+        for(int i = 0; i < 180; i++){
             ElbowFlexion.add((float) 0.81);
             ElbowSupination.add((float) 0.17);
             ShoulderFlexion.add((float) 0.08);
