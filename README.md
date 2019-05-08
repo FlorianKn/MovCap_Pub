@@ -20,11 +20,18 @@ Run `python activity_recognition.py` to train and test model.
 
 ## Export model to Android  
 Run `python freezeModel.py` to freeze the model.  
-Copy the generated `frozen_har.pb` into asset folder of android-studio project.
+Copy the generated `frozen_har.pb` into the asset folder of the android-studio project.  
+  
+Most important part can be seen below:
 
 ```java
 private TensorFlowInferenceInterface inferenceInterface;
 private static final String MODEL_FILE = "file:///android_asset/frozen_har.pb";
+private static final String INPUT_NODE = "X";
+private static final String[] OUTPUT_NODES = {"y_pred_softmax"};
+private static final String OUTPUT_NODE = "y_pred_softmax";
+private static final long[] INPUT_SIZE = {1, 180, 5};
+private static final int OUTPUT_SIZE = 4;
 
 public TensorFlowClassifier(final Context context) {
 inferenceInterface = new TensorFlowInferenceInterface(context.getAssets(), MODEL_FILE);
@@ -42,5 +49,6 @@ try {
 }
 return result;
 }
-```
+```  
+*Note if you have problems with libandroid_tensorflow_inference_java.jar you might need to update it: https://bintray.com/google/tensorflow/tensorflow#files/org%2Ftensorflow%2Ftensorflow-android. The package is called tensorflow-android-1.9.0.aar*
 
