@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int N_SAMPLES = 100;
+    private static final int N_SAMPLES = 200;
     private static List<Float> ElbowFlexion;
     private static List<Float> ElbowSupination;
     private static List<Float> ShoulderFlexion;
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         classifier = new TensorFlowClassifier(this);
         addValue();
+        System.out.println("Here");
         activityPrediction();
     }
 
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void addValue(){
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 200; i++){
             ElbowFlexion.add((float) 0.81);
             ElbowSupination.add((float) 0.17);
             ShoulderFlexion.add((float) 0.08);

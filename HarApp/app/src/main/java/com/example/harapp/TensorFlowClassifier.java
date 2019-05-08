@@ -24,10 +24,10 @@ public class TensorFlowClassifier {
 
     private TensorFlowInferenceInterface inferenceInterface;
     private static final String MODEL_FILE = "file:///android_asset/frozen_har.pb";
-    /*private static final String INPUT_NODE = "inputs";
-    private static final String[] OUTPUT_NODES = {"y_"};
-    private static final String OUTPUT_NODE = "y_";
-    private static final long[] INPUT_SIZE = {1, 200, 3};*/
+    private static final String INPUT_NODE = "X";
+    private static final String[] OUTPUT_NODES = {"y_pred_softmax"};
+    private static final String OUTPUT_NODE = "y_pred_softmax";
+    private static final long[] INPUT_SIZE = {1, 200, 5};
     private static final int OUTPUT_SIZE = 4;
     //Interpreter tflite;
 
@@ -47,11 +47,12 @@ public class TensorFlowClassifier {
 
     public float[] predictProbabilities(float[] data) {
         float[] result = new float[OUTPUT_SIZE];
-        /*inferenceInterface.feed(INPUT_NODE, data, INPUT_SIZE);
-        inferenceInterface.run(OUTPUT_NODES);
-        inferenceInterface.fetch(OUTPUT_NODE, result);*/
 
-        // TODO: Fix bug here
+        inferenceInterface.feed(INPUT_NODE, data, INPUT_SIZE);
+        inferenceInterface.run(OUTPUT_NODES);
+        //inferenceInterface.fetch(OUTPUT_NODE, result);
+
+
         //tflite.run(data, result);
         //HAMMER_CURLS, BICEPS_CURLS, TRICEPS_DRUECKEN, REVERSE_CURLS
         return result;
