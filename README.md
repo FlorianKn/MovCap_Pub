@@ -20,8 +20,27 @@ Run `python activity_recognition.py` to train and test model.
 
 ## Export model to Android  
 Run `python freezeModel.py` to freeze the model.  
-Run `python tfLiteConverter.py` to convert the model to `.tflite`.  
-  
-The TensorFlow Lite Architecture can be seen below:  
-![tflite-architecture](data/fig/tflite-architecture.jpg)  
-Source: https://www.tensorflow.org/lite/guide
+Copy the generated `frozen_har.pb` into asset folder of android-studio project.
+
+```java
+private TensorFlowInferenceInterface inferenceInterface;
+private static final String MODEL_FILE = "file:///android_asset/frozen_har.pb";
+
+public TensorFlowClassifier(final Context context) {
+inferenceInterface = new TensorFlowInferenceInterface(context.getAssets(), MODEL_FILE);
+}
+// Make predictions
+public float[] predictProbabilities(float[] data) {
+float[] result = new float[OUTPUT_SIZE];
+
+try {
+    inferenceInterface.feed(INPUT_NODE, data, INPUT_SIZE);
+    inferenceInterface.run(OUTPUT_NODES);
+    inferenceInterface.fetch(OUTPUT_NODE, result);
+} catch (Exception e){
+    System.out.println(e);
+}
+return result;
+}
+```
+
