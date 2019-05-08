@@ -28,7 +28,8 @@ COLUMN_NAMES = [
 LABELS = [
     'HAMMER_CURLS',
     'BICEPS_CURLS',
-    'TRICEPS_DRUECKEN'
+    'TRICEPS_DRUECKEN',
+    'REVERSE_CURLS'
 ]
 
 DATA_PATH = 'data/data_m.csv'

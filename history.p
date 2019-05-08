@@ -21,7 +21,7 @@ NNNI-1
 I-1
 I0
 tp9
-bS'\xab\xaa\xaa>'
+bS'\xab\xaa*?'
 p10
 tp11
 Rp12
@@ -39,7 +39,7 @@ p18
 (lp19
 g3
 (g7
-S'iA\xdb?'
+S'\xef\x0f\n@'
 p20
 tp21
 Rp22
@@ -48,7 +48,7 @@ p23
 (lp24
 g3
 (g7
-S'\t\xcb\xae?'
+S'\xd1B\xaa?'
 p25
 tp26
 Rp27
