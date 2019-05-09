@@ -9,6 +9,7 @@ from scipy import stats
 from pylab import rcParams
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
+import datetime
 
 # Just disables the warning, doesn't enable AVX/FMA
 import os
@@ -43,7 +44,7 @@ N_FEATURES = 5 # ElbowFlexion, ElbowSupination, ShoulderFlexion, ShoulderAbducti
 
 # Hyperparameters
 N_LSTM_LAYERS = 2
-N_EPOCHS = 1
+N_EPOCHS = 3
 L2_LOSS = 0.0015
 LEARNING_RATE = 0.0025
 
@@ -152,6 +153,17 @@ if __name__ == '__main__':
     sess = tf.InteractiveSession()
     sess.run(tf.global_variables_initializer())
 
+    #TensorBoard
+    writer = tf.summary.FileWriter('./data/summary/graph', sess.graph)
+    tf.summary.scalar('acc_summary', accuracy)
+    merged = tf.summary.merge_all()
+    time_string = datetime.datetime.now().isoformat()
+
+    acc_train_writer = tf.summary.FileWriter('./data/summary/acc_train/' + str(time_string), sess.graph)
+    loss_train_writer  = tf.summary.FileWriter('./data/summary/loss_train/' + str(time_string), sess.graph)
+    acc_test_writer = tf.summary.FileWriter('./data/summary/acc_test/' + str(time_string), sess.graph)
+    loss_test_writer  = tf.summary.FileWriter('./data/summary/loss_test/' + str(time_string), sess.graph)
+
     train_count = len(X_train)
 
     for i in range(1, N_EPOCHS + 1):
@@ -160,15 +172,26 @@ if __name__ == '__main__':
 
         _, acc_train, loss_train = sess.run([y_pred_softmax, accuracy, loss], feed_dict={X: X_train, y: y_train})
         _, acc_test, loss_test = sess.run([y_pred_softmax, accuracy, loss], feed_dict={X: X_test, y: y_test})
-
         history['train_loss'].append(loss_train)
         history['train_acc'].append(acc_train)
         history['test_loss'].append(loss_test)
         history['test_acc'].append(acc_test)
+
+        # Tensorboard
+        # Convert data to summary
+        acctrain_summary = tf.Summary(value=[tf.Summary.Value(tag="Training accuracy", simple_value=acc_train)])
+        losstrain_summary = tf.Summary(value=[tf.Summary.Value(tag="Training loss", simple_value=loss_train)])
+        acctest_summary = tf.Summary(value=[tf.Summary.Value(tag="Test accuracy", simple_value=acc_test)])
+        losstest_summary = tf.Summary(value=[tf.Summary.Value(tag="Test loss", simple_value=loss_test)])        
+        
+        acc_train_writer.add_summary(acctrain_summary, i)
+        loss_train_writer.add_summary(losstrain_summary, i)
+        acc_test_writer.add_summary(acctest_summary, i)
+        loss_test_writer.add_summary(losstest_summary, i)
         print'epoch: '+  str(i) + ' test accuracy: ' + str(acc_test) + ' loss: ' + str(loss_test)
         if(i % 5 != 0):
             continue
-
+   
 
     predictions, acc_final, loss_final = sess.run([y_pred_softmax, accuracy, loss], feed_dict={X: X_test, y: y_test})
     print 'final results: accuracy: ' + str(acc_final) +  ' loss: ' + str(loss_final)
