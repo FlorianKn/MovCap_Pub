@@ -54,6 +54,6 @@ return result;
   
 The screen of the app can be seen below:  
   
-![App](app_screen.png) 
+![App](data/fig/app_screen.png) 
 
 
