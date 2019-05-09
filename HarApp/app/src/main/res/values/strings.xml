@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HarApp</string>
+    <string name="activity">Activity</string>
+    <string name="probability">Probability</string>
+    <string name="hammer">HAMMER_CURLS</string>
+    <string name="bicurls">BICEPS_CURLS</string>
+    <string name="tridruecken">TRICEPS_DRUECKEN</string>
+    <string name="reverse">REVERSE</string>
+</resources>

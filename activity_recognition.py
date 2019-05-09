@@ -28,7 +28,8 @@ COLUMN_NAMES = [
 LABELS = [
     'HAMMER_CURLS',
     'BICEPS_CURLS',
-    'TRICEPS_DRUECKEN'
+    'TRICEPS_DRUECKEN',
+    'REVERSE_CURLS'
 ]
 
 DATA_PATH = 'data/data_m.csv'
@@ -37,7 +38,7 @@ RANDOM_SEED = 13
 # Data preprocessing
 # Model expects fixed-length sequence as training data
 TIME_STEP = 100 # each sequence contains 100 training samples
-N_CLASSES = 3 # HAMMER_CURLS, BICEPS_CURLS, TRICEPS_DRUECKEN
+N_CLASSES = 4 # HAMMER_CURLS, BICEPS_CURLS, TRICEPS_DRUECKEN, REVERSE_CURLS
 N_FEATURES = 5 # ElbowFlexion, ElbowSupination, ShoulderFlexion, ShoulderAbduction, ShoulderRotation
 
 # Hyperparameters
@@ -94,6 +95,7 @@ if __name__ == '__main__':
     # DATA PREPROCESSING
     data_convoluted = []
     labels = []
+    
 
     # Slide a "SEGMENT_TIME_SIZE" wide window with a step size of "TIME_STEP"
     for i in range(0, len(data) - SEGMENT_TIME_SIZE, TIME_STEP):
@@ -106,6 +108,7 @@ if __name__ == '__main__':
 
         # Label for a data window is the label that appears most commonly
         label = stats.mode(data['Label'][i: i + SEGMENT_TIME_SIZE])[0][0]
+
         labels.append(label)
 
 
@@ -115,6 +118,7 @@ if __name__ == '__main__':
     labels = np.asarray(pd.get_dummies(labels), dtype=np.float32)
     #print("Convoluted data shape: ", data_convoluted.shape)
     #print("Labels shape:", labels.shape)
+
 
 
     # SPLIT INTO TRAINING AND TEST SETS

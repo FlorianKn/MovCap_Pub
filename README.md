@@ -16,12 +16,44 @@ LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 100], ["BICEPS_CURLS", 50], ["
 ```  
 Afterwards run `python prepareNotchData.py`.  
 ## Train model  
-Run `python activity_recognition.py` to train and test model.  
+Run `python activity_recognition.py` to train and test the model.  
 
 ## Export model to Android  
 Run `python freezeModel.py` to freeze the model.  
-Run `python tfLiteConverter.py` to convert the model to `.tflite`.  
+Copy the generated `frozen_har.pb` into the asset folder of an android-studio project.  
   
-The TensorFlow Lite Architecture can be seen below:  
-![tflite-architecture](data/fig/tflite-architecture.jpg)  
-Source: https://www.tensorflow.org/lite/guide
+Most important part can be seen below:
+
+```java
+private TensorFlowInferenceInterface inferenceInterface;
+private static final String MODEL_FILE = "file:///android_asset/frozen_har.pb";
+private static final String INPUT_NODE = "X";
+private static final String[] OUTPUT_NODES = {"y_pred_softmax"};
+private static final String OUTPUT_NODE = "y_pred_softmax";
+private static final long[] INPUT_SIZE = {1, 180, 5};
+private static final int OUTPUT_SIZE = 4;
+
+public TensorFlowClassifier(final Context context) {
+inferenceInterface = new TensorFlowInferenceInterface(context.getAssets(), MODEL_FILE);
+}
+// Make predictions
+public float[] predictProbabilities(float[] data) {
+float[] result = new float[OUTPUT_SIZE];
+
+try {
+    inferenceInterface.feed(INPUT_NODE, data, INPUT_SIZE);
+    inferenceInterface.run(OUTPUT_NODES);
+    inferenceInterface.fetch(OUTPUT_NODE, result);
+} catch (Exception e){
+    System.out.println(e);
+}
+return result;
+}
+```  
+*Note if you have problems with libandroid_tensorflow_inference_java.jar you might need to update it: https://bintray.com/google/tensorflow/tensorflow#files/org%2Ftensorflow%2Ftensorflow-android. The package is called tensorflow-android-1.9.0.aar*  
+  
+The screen of the app can be seen below:  
+  
+![App](data/fig/app_screen.png) 
+
+

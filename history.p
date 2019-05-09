@@ -30,7 +30,7 @@ p13
 (lp14
 g3
 (g7
-S'\xab\xaa\xaa>'
+S'\x00\x00\x00\x00'
 p15
 tp16
 Rp17
@@ -39,7 +39,7 @@ p18
 (lp19
 g3
 (g7
-S'iA\xdb?'
+S'\x8c\x0fR@'
 p20
 tp21
 Rp22
@@ -48,7 +48,7 @@ p23
 (lp24
 g3
 (g7
-S'\t\xcb\xae?'
+S'`\x99\x0b@'
 p25
 tp26
 Rp27
