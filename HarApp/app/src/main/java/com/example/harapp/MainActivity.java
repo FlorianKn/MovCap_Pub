@@ -1,5 +1,9 @@
 package com.example.harapp;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -7,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final int N_SAMPLES = 180;
     private static List<Float> ElbowFlexion;
@@ -20,11 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView Biceps_TextView;
     private TextView Triceps_TextView;
     private TextView Reverse_TextView;
-
     private float[] results;
     private TensorFlowClassifier classifier;
-
-    private String[] labels = {"HAMMER_CURLS", "BICEPS_CURLS", "TRICEPS_DRUECKEN", "REVERSE_CURLS"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,36 @@ public class MainActivity extends AppCompatActivity {
         Reverse_TextView = (TextView) findViewById(R.id.reverse_prob);
 
         classifier = new TensorFlowClassifier(this);
-        addValue();
-
-        activityPrediction();
     }
 
+    protected void onPause() {
+        getSensorManager().unregisterListener(this);
+        super.onPause();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        getSensorManager().registerListener(this, getSensorManager().getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        activityPrediction();
+        ElbowFlexion.add(event.values[0]);
+        ElbowSupination.add(event.values[1]);
+        ShoulderFlexion.add(event.values[2]);
+        ShoulderAbduction.add(event.values[0]);
+        ShoulderRotation.add(event.values[1]);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    private SensorManager getSensorManager() {
+        return (SensorManager) getSystemService(SENSOR_SERVICE);
+    }
     private void activityPrediction() {
         if (ElbowFlexion.size() == N_SAMPLES && ElbowSupination.size() == N_SAMPLES && ShoulderFlexion.size() == N_SAMPLES && ShoulderAbduction.size() == N_SAMPLES && ShoulderRotation.size() == N_SAMPLES) {
             List<Float> data = new ArrayList<>();
@@ -85,15 +111,5 @@ public class MainActivity extends AppCompatActivity {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
-    }
-
-    void addValue(){
-        for(int i = 0; i < 180; i++){
-            ElbowFlexion.add((float) 0.81);
-            ElbowSupination.add((float) 0.17);
-            ShoulderFlexion.add((float) 0.08);
-            ShoulderAbduction.add((float) 0.05);
-            ShoulderRotation.add((float) 0.48);
-        }
     }
 }

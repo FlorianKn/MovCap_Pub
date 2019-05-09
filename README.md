@@ -16,11 +16,11 @@ LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 100], ["BICEPS_CURLS", 50], ["
 ```  
 Afterwards run `python prepareNotchData.py`.  
 ## Train model  
-Run `python activity_recognition.py` to train and test model.  
+Run `python activity_recognition.py` to train and test the model.  
 
 ## Export model to Android  
 Run `python freezeModel.py` to freeze the model.  
-Copy the generated `frozen_har.pb` into the asset folder of the android-studio project.  
+Copy the generated `frozen_har.pb` into the asset folder of an android-studio project.  
   
 Most important part can be seen below:
 
@@ -50,5 +50,10 @@ try {
 return result;
 }
 ```  
-*Note if you have problems with libandroid_tensorflow_inference_java.jar you might need to update it: https://bintray.com/google/tensorflow/tensorflow#files/org%2Ftensorflow%2Ftensorflow-android. The package is called tensorflow-android-1.9.0.aar*
+*Note if you have problems with libandroid_tensorflow_inference_java.jar you might need to update it: https://bintray.com/google/tensorflow/tensorflow#files/org%2Ftensorflow%2Ftensorflow-android. The package is called tensorflow-android-1.9.0.aar*  
+  
+The screen of the app can be seen below:  
+  
+![App](app_screen.png) 
+
 
