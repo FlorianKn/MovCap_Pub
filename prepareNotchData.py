@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
 
-USERS = np.array([["User", 1], ["1", 200], ["2", 47]]) # ["userID", number of rows userID should be attached]
-LABELS = np.array([["Label", 1], ["HAMMER_CURLS", 100], ["BICEPS_CURLS", 50], ["TRICEPS_DRUECKEN", 50], ["REVERSE_CURLS", 47]]) # ["Label", number of rows Label should be attached]
 NEW_HEADER = np.array([["Time","ElbowFlexion", "ElbowSupination", "ShoulderFlexion", "ShoulderAbduction", "ShoulderRotation", "User", "Label"]])
 
 def readCSV(path):
@@ -45,7 +43,7 @@ def writeCsv(arr):
 
 # Append column wise
 def appendCol(arr1, arr2):
-    return np.append(arr1, arr2, axis=1)
+    return np.append(arr1, arr2, axis=None)
 
 # Convert 1d-Array to 2d
 def To2d(arr):
@@ -60,21 +58,25 @@ def deleteFirstLine():
 
 
 def main():
-    arr1 = readCSV("data/Angles_LeftElbow.csv");
-    arr2 = readCSV("data/Angles_LeftShoulder.csv");
+    arr1 = readCSV("data/Angles_RightElbow.csv");
+    arr2 = readCSV("data/Angles_RightShoulder.csv");
+    
+    USERS = np.array([["User", 1], ["1", len(arr1)-1]])
+    LABELS = np.array([["Label", 1], ["TRICEPS_DRUECKEN", len(arr1)-1]])
 
     array = concatArrays(arr1, arr2);
     array = deleteCol(array);
-
+ 
     users = addLabUsr(USERS);
     users = To2d(users)
     labels = addLabUsr(LABELS);
     labels = To2d(labels)
 
-    array = appendCol(array, users)
-    array = appendCol(array, labels)
+    array = concatArrays(array, users)
+    array = concatArrays(array, labels)
     array = deleteHeader(array)
     # Set new header here
+	
     array = concatArraysRow(NEW_HEADER, array)
     writeCsv(array);
 
