@@ -33,23 +33,23 @@ LABELS = [
     'REVERSE_CURLS'
 ]
 
-DATA_PATH = 'data/data_m.csv'
+DATA_PATH = 'data/data.csv'
 RANDOM_SEED = 13
 
 # Data preprocessing
 # Model expects fixed-length sequence as training data
-TIME_STEP = 100 # each sequence contains 100 training samples
+TIME_STEP = 30 # slide window with TIME_STEP
 N_CLASSES = 4 # HAMMER_CURLS, BICEPS_CURLS, TRICEPS_DRUECKEN, REVERSE_CURLS
 N_FEATURES = 5 # ElbowFlexion, ElbowSupination, ShoulderFlexion, ShoulderAbduction, ShoulderRotation
 
 # Hyperparameters
 N_LSTM_LAYERS = 2
-N_EPOCHS = 3
+N_EPOCHS = 100
 L2_LOSS = 0.0015
 LEARNING_RATE = 0.0025
 
 # Hyperparameters optimized
-SEGMENT_TIME_SIZE = 180
+SEGMENT_TIME_SIZE = 30 # each sequence contains 30 training samples
 N_HIDDEN_NEURONS = 30
 BATCH_SIZE = 32
 
@@ -96,8 +96,7 @@ if __name__ == '__main__':
     # DATA PREPROCESSING
     data_convoluted = []
     labels = []
-    
-
+   
     # Slide a "SEGMENT_TIME_SIZE" wide window with a step size of "TIME_STEP"
     for i in range(0, len(data) - SEGMENT_TIME_SIZE, TIME_STEP):
         eF = data['ElbowFlexion'].values[i: i + SEGMENT_TIME_SIZE]
@@ -112,7 +111,7 @@ if __name__ == '__main__':
 
         labels.append(label)
 
-
+    print("Convoluted data shape: ", np.array(data_convoluted).shape)
     # Convert to numpy
     data_convoluted = np.asarray(data_convoluted, dtype=np.float32).transpose(0, 2, 1)
     # One-hot encoding
@@ -125,9 +124,9 @@ if __name__ == '__main__':
     # SPLIT INTO TRAINING AND TEST SETS
     X_train, X_test, y_train, y_test = train_test_split(data_convoluted, labels, test_size=0.3, random_state=RANDOM_SEED)
     #print("X train size: ", len(X_train))
-    #print("X test size: ", len(X_test))
+    print("X test size: ", len(X_test))
     #print("y train size: ", len(y_train))
-    #print("y test size: ", len(y_test))
+    print("y test size: ", len(y_test))
 
     # BUILD A MODEL
     # Placeholders

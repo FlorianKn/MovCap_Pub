@@ -1,11 +1,19 @@
 # MovCap
-Capture and classify movements with NN 
+Capture and classify movements with NN  
+## Generate data  
+The data was generated with the notch sensor kit, see image below:  
+![Placement](data/fig/sensor_placement.jpg)  
+*sensors are placed on the right arm*  
 ## Explore dataset  
 `python -c "from plot import plotLabels; print plotLabels()"`  
 ![Fig1](data/fig/fig1.png)  
 
 `python -c "from plot import plotActivity; print plotActivity('HAMMER_CURLS')"`  
-![Fig2](data/fig/fig2.png) 
+Hammer curls:  
+![Hammer](data/fig/HAMMER.png)  
+  
+Triceps:  
+![Triceps](data/fig/TRICEPS.png)  
 ## Prepare notch data  
 Each notch sensor stores its data in one csv file. To put those files in an appropriate format *prepareNotchData.py* can be used. Before running the script adapt the following lines in *prepareNotchData.py*:  
 ```python
