@@ -1,7 +1,8 @@
 # MovCap
 Capture and classify movements with NN  
 ## Generate data  
-The data was generated with the notch sensor kit, see image below:  
+The data was generated with three notch sensors, see image below:  
+  
 ![Placement](data/fig/sensor_placement.jpg)  
 *sensors are placed on the right arm*  
 ## Explore dataset  
