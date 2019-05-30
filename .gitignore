@@ -1,0 +1,7 @@
+# Don't track content of these folders
+data/summary
+checkpoint
+
+# Files
+*.p
+*.pyc
