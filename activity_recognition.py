@@ -33,7 +33,7 @@ LABELS = [
     'REVERSE_CURLS'
 ]
 
-DATA_PATH = 'data/data.csv'
+DATA_PATH = 'data/data_xxl.csv'
 RANDOM_SEED = 13
 
 # Data preprocessing
