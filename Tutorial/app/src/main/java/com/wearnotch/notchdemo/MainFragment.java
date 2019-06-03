@@ -74,7 +74,7 @@ import butterknife.OnClick;
 
 public class MainFragment extends BaseFragment {
     private static final String TAG = MainFragment.class.getSimpleName();
-    private static final String DEFAULT_USER_LICENSE = "";
+    private static final String DEFAULT_USER_LICENSE = "DFHcAIXWU4b7BNnMQKtf";
 
     private static final String NOTCH_DIR = "notch_tutorial";
     private static final long CALIBRATION_TIME = 7000L;

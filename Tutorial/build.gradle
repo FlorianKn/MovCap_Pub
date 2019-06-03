@@ -19,8 +19,8 @@ allprojects {
         maven {
             url 'https://wearnotch.com/maven/notch/'
             credentials {
-                username ''
-                password ''
+                username 'sandboxapplication-646'
+                password '85GZZoYjctbs'
             }
         }
         google()
