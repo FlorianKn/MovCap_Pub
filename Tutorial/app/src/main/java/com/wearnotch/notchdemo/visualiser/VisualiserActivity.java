@@ -373,13 +373,13 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         } else {
             mPlayPause.setImageResource(R.drawable.ic_pause);
         }
-
         refreshAngles();
     }
 
     private Runnable mRefreshPlayback = new Runnable() {
         @Override
         public void run() {
+
             if (mRenderer != null) {
                 for (int i=0; i<mRenderer.getContextSize();i++) {
                     if (mRenderer.rendererContextIndexExists(i)) mRenderer.setFrameIndex(i,mFrameIndex);
@@ -526,6 +526,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
     // Show angles
     public void refreshAngles() {
+
         if(mData == null) {
             return;
         }
@@ -544,6 +545,9 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         Bone root = mSkeleton.getRoot();
         Bone foreArm = mSkeleton.getBone("RightForeArm");
         Bone upperArm = mSkeleton.getBone("RightUpperArm");
+
+
+
 
         fvec3 chestAngles = new fvec3();
         fvec3 elbowAngles = new fvec3();
@@ -573,6 +577,11 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                 .append("Rotation left(+)/right(-): ").append((int)chestAngles.get(1)).append("°\n")
                 // Lateral tilt (side bend) is rotation around global Z axis
                 .append("Lateral tilt left(-)/right(+): ").append((int)chestAngles.get(2)).append("°\n");
+
+        System.out.println("---------------------------------------------------");
+        System.out.println("Extension(+)/flexion(-):" + (int)elbowAngles.get(0));
+        System.out.println("Supination(+)/pronation(-):" + (int)elbowAngles.get(1));
+        System.out.println("---------------------------------------------------");
 
         mAnglesText.setText(sb.toString());
     }
