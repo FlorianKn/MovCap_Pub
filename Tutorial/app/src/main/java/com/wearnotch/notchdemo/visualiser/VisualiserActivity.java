@@ -583,13 +583,14 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         String l = activityPrediction();
         if(l != null && l != label) {
              label = l;
+             System.out.println("Label: " + label);
         }
-        System.out.println(label);
+
         ElbowFlexion.add(elbowAngles.get(0));
         ElbowSupination.add(elbowAngles.get(1));
         ShoulderFlexion.add(shoulderAngles.get(0));
-        ShoulderAbduction.add(shoulderAngles.get(1));
-        ShoulderRotation.add(shoulderAngles.get(2));
+        ShoulderAbduction.add(shoulderAngles.get(2));
+        ShoulderRotation.add(shoulderAngles.get(1));
 
         // Show angles
         StringBuilder sb = new StringBuilder();
@@ -602,15 +603,10 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                 // Anterior/posterior tilt (forward/backward bend) is rotation around global X axis
                 .append("ShoulderFlexion: ").append((int)shoulderAngles.get(0)).append("°\n")
                 // Rotation to left/right is rotation around the global Y axis
-                .append("ShoulderAbduction: ").append((int)shoulderAngles.get(1)).append("°\n")
+                .append("ShoulderRotation: ").append((int)shoulderAngles.get(1)).append("°\n")
                 // Lateral tilt (side bend) is rotation around global Z axis
-                .append("ShoulderRotation: ").append((int)shoulderAngles.get(2)).append("°\n")
+                .append("ShoulderAbduction: ").append((int)shoulderAngles.get(2)).append("°\n")
                 .append("\nRecognized Gesture: " + label);
-
-        /*System.out.println("---------------------------------------------------");
-        System.out.println("Shoulder:" + shoulderAngles);
-        System.out.println("Supination(+)/pronation(-):" + elbowAngles);
-        System.out.println("---------------------------------------------------");*/
 
         mAnglesText.setText(sb.toString());
     }
@@ -625,17 +621,13 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             data.addAll(ShoulderRotation);
 
             results = classifier.predictProbabilities(toFloatArray(data));
-    /*
-            Hammer_TextView.setText(Float.toString(round(results[0], 2)));
-            Biceps_TextView.setText(Float.toString(round(results[1], 2)));
-            Triceps_TextView.setText(Float.toString(round(results[2], 2)));
-            Reverse_TextView.setText(Float.toString(round(results[3], 2)));
-*/
+
             ElbowFlexion.clear();
             ElbowSupination.clear();
             ShoulderFlexion.clear();
             ShoulderAbduction.clear();
             ShoulderRotation.clear();
+
             int maxIndex = 0;
             float max = 0;
             for(int i = 0; i < results.length; i++) {
