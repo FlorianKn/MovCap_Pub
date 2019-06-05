@@ -22,7 +22,9 @@ android {
         targetSdkVersion 26
         versionCode 9
         versionName '1.8'
-
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "armeabi", "mips"
+        }
         multiDexEnabled true
     }
 
@@ -40,6 +42,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 
     packagingOptions {
         exclude 'LICENSE.txt'
@@ -55,54 +62,18 @@ android {
 
 dependencies {
     implementation 'com.notch.sdk:sdk-android:1.1.355'
-
-
     implementation 'com.illposed.osc:javaosc-core:0.4'
-
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.android.support:design:26.1.0'
     implementation 'org.greenrobot:eventbus:3.0.0'
-
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support:multidex:1.0.2'
     implementation 'com.afollestad.material-dialogs:core:0.9.0.1'
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'org.tensorflow:tensorflow-lite:1.13.1'
+    implementation files('libs/libandroid_tensorflow_inference_java.jar')
 }
-/*
-task convertObj(type: JavaExec) {
-    ext.srcFile1 = file('../model/equipment_tutorial.obj')
-    ext.srcFile2 = file('../model/equipment_tutorial.js')
-    inputs.file files([srcFile1,srcFile2])
-    outputs.dir project.modelAssetsDir
-
-    main = 'com.wearnotch.visualiserutil.ObjConverter'
-    classpath = configurations.compile
-    args = [ srcFile1.getAbsolutePath(), srcFile2.getAbsolutePath(),
-             new File((File) project.modelAssetsDir, 'equipment.dat').getAbsolutePath() ]
-}
-
-task convertMtl(type: JavaExec) {
-    ext.srcFile = file('../model/equipment_tutorial.mtl')
-    inputs.file srcFile
-    outputs.dir project.modelAssetsDir
-
-    main = 'com.wearnotch.visualiserutil.MtlConverter'
-    classpath = configurations.compile
-    args = [ srcFile.getAbsolutePath(),
-             new File((File) project.modelAssetsDir, 'equipment_mtl.dat').getAbsolutePath() ]
-}
-
-project.afterEvaluate {
-    project.tasks.findAll {
-        it.name.startsWith('generate') && it.name.endsWith('Assets')
-    }.each {
-        it.dependsOn convertObj
-        it.dependsOn convertMtl
-    }
-}*/
-

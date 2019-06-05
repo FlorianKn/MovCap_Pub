@@ -27,6 +27,7 @@ import com.wearnotch.framework.Bone;
 import com.wearnotch.framework.Skeleton;
 import com.wearnotch.framework.visualiser.VisualiserData;
 import com.wearnotch.notchdemo.R;
+import com.wearnotch.notchdemo.TensorFlowClassifier;
 import com.wearnotch.notchdemo.util.Util;
 import com.wearnotch.notchmaths.fvec3;
 import com.wearnotch.visualiser.NotchSkeletonRenderer;
@@ -59,8 +60,17 @@ import butterknife.OnClick;
 
 public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     private static final String TAG = "Visualiser";
-
+    private TensorFlowClassifier classifier;
     private static final float SECONDARY_TRANSPARENCY = 0.8f;
+
+    private static final int N_SAMPLES = 30;
+    private static List<Float> ElbowFlexion;
+    private static List<Float> ElbowSupination;
+    private static List<Float> ShoulderFlexion;
+    private static List<Float> ShoulderAbduction;
+    private static List<Float> ShoulderRotation;
+    private float[] results;
+    String label = "";
 
     private static final int REQUEST_OPEN = 1;
 
@@ -159,6 +169,14 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
         decimalFormat = new DecimalFormat("0.000", otherSymbols);
+
+        ElbowFlexion = new ArrayList<>();
+        ElbowSupination = new ArrayList<>();
+        ShoulderFlexion = new ArrayList<>();
+        ShoulderAbduction = new ArrayList<>();
+        ShoulderRotation = new ArrayList<>();
+
+        classifier = new TensorFlowClassifier(this);
     }
 
     @Subscribe
@@ -526,7 +544,6 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
     // Show angles
     public void refreshAngles() {
-
         if(mData == null) {
             return;
         }
@@ -545,12 +562,11 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         Bone root = mSkeleton.getRoot();
         Bone foreArm = mSkeleton.getBone("RightForeArm");
         Bone upperArm = mSkeleton.getBone("RightUpperArm");
-
-
-
+        Bone collar = mSkeleton.getBone("RightCollar");
 
         fvec3 chestAngles = new fvec3();
         fvec3 elbowAngles = new fvec3();
+        fvec3 shoulderAngles = new fvec3();
 
         // Calculate forearm angles with respect to upper arm (determine elbow joint angles).
         // Angles correspond to rotations around X,Y and Z axis of the paren bone's coordinate system, respectively.
@@ -558,10 +574,22 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         // Default orientations are defined in the steady pose (in the skeleton file)
         // Usage: calculateRelativeAngle(Bone child, Bone parent, int frameIndex, fvec3 output)
         mData.calculateRelativeAngle(foreArm, upperArm, frameIndex, elbowAngles);
+        mData.calculateRelativeAngle(upperArm, collar, frameIndex, shoulderAngles);
 
         // Calculate chest angles with respect root, i.e. absolute angles
         // The root orientation is the always the same as in the steady pose.
         mData.calculateRelativeAngle(chest, root, frameIndex, chestAngles);
+
+        String l = activityPrediction();
+        if(l != null && l != label) {
+             label = l;
+        }
+        System.out.println(label);
+        ElbowFlexion.add(elbowAngles.get(0));
+        ElbowSupination.add(elbowAngles.get(1));
+        ShoulderFlexion.add(shoulderAngles.get(0));
+        ShoulderAbduction.add(shoulderAngles.get(1));
+        ShoulderRotation.add(shoulderAngles.get(2));
 
         // Show angles
         StringBuilder sb = new StringBuilder();
@@ -570,20 +598,77 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                 .append("Extension(+)/flexion(-): ").append((int)elbowAngles.get(0)).append("°\n")
                 // Supination/pronation is rotation around the upperarm's Y-axis
                 .append("Supination(+)/pronation(-): ").append((int)elbowAngles.get(1)).append("°\n")
-                .append("\nChest angles:\n")
+                .append("\nShoulderangles1:\n")
                 // Anterior/posterior tilt (forward/backward bend) is rotation around global X axis
-                .append("Anterior(+)/posterior(-) tilt: ").append((int)chestAngles.get(0)).append("°\n")
+                .append("ShoulderFlexion: ").append((int)shoulderAngles.get(0)).append("°\n")
                 // Rotation to left/right is rotation around the global Y axis
-                .append("Rotation left(+)/right(-): ").append((int)chestAngles.get(1)).append("°\n")
+                .append("ShoulderAbduction: ").append((int)shoulderAngles.get(1)).append("°\n")
                 // Lateral tilt (side bend) is rotation around global Z axis
-                .append("Lateral tilt left(-)/right(+): ").append((int)chestAngles.get(2)).append("°\n");
+                .append("ShoulderRotation: ").append((int)shoulderAngles.get(2)).append("°\n")
+                .append("\nRecognized Gesture: " + label);
 
-        System.out.println("---------------------------------------------------");
-        System.out.println("Extension(+)/flexion(-):" + (int)elbowAngles.get(0));
-        System.out.println("Supination(+)/pronation(-):" + (int)elbowAngles.get(1));
-        System.out.println("---------------------------------------------------");
+        /*System.out.println("---------------------------------------------------");
+        System.out.println("Shoulder:" + shoulderAngles);
+        System.out.println("Supination(+)/pronation(-):" + elbowAngles);
+        System.out.println("---------------------------------------------------");*/
 
         mAnglesText.setText(sb.toString());
+    }
+
+    private String activityPrediction() {
+        if (ElbowFlexion.size() == N_SAMPLES && ElbowSupination.size() == N_SAMPLES && ShoulderFlexion.size() == N_SAMPLES && ShoulderAbduction.size() == N_SAMPLES && ShoulderRotation.size() == N_SAMPLES) {
+            List<Float> data = new ArrayList<>();
+            data.addAll(ElbowFlexion);
+            data.addAll(ElbowSupination);
+            data.addAll(ShoulderFlexion);
+            data.addAll(ShoulderAbduction);
+            data.addAll(ShoulderRotation);
+
+            results = classifier.predictProbabilities(toFloatArray(data));
+    /*
+            Hammer_TextView.setText(Float.toString(round(results[0], 2)));
+            Biceps_TextView.setText(Float.toString(round(results[1], 2)));
+            Triceps_TextView.setText(Float.toString(round(results[2], 2)));
+            Reverse_TextView.setText(Float.toString(round(results[3], 2)));
+*/
+            ElbowFlexion.clear();
+            ElbowSupination.clear();
+            ShoulderFlexion.clear();
+            ShoulderAbduction.clear();
+            ShoulderRotation.clear();
+            int maxIndex = 0;
+            float max = 0;
+            for(int i = 0; i < results.length; i++) {
+                float val = results[i];
+
+                if(val > max) {
+                    max = val;
+                    maxIndex = i;
+                }
+            }
+
+            System.out.println("Prediction: " + results[0] + "," + results[1] + "," + results[2] + "," + results[3]);
+            if(maxIndex == 0) {
+                return "Hammer";
+            } else if(maxIndex == 1) {
+                return "Biceps";
+            }else if(maxIndex == 2) {
+                return "Triceps";
+            } else {
+                return "Reverse";
+            }
+        }
+        return null;
+    }
+
+    private float[] toFloatArray(List<Float> list) {
+        int i = 0;
+        float[] array = new float[list.size()];
+
+        for (Float f : list) {
+            array[i++] = (f != null ? f : Float.NaN);
+        }
+        return array;
     }
 
     public void showNotification(final int stringId) {

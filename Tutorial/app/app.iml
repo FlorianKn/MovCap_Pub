@@ -126,12 +126,14 @@
     <orderEntry type="library" name="Gradle: android.arch.core:common:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4:26.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.notch.sdk:sdk-network-android:1.0.477@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.tensorflow:tensorflow-lite:1.13.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: org.ocpsoft.prettytime:prettytime:4.0.1.Final@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.notch:framework:1.1.72@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.notch.visualiser:visualiser-android:1.2.20@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.afollestad.material-dialogs:core:0.9.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-annotations:26.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:transition:26.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/home/florian/MovCap/Tutorial/app/libs/libandroid_tensorflow_inference_java.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-media-compat:26.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.illposed.osc:javaosc-core:0.4@jar" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:runtime:1.0.0@aar" level="project" />
