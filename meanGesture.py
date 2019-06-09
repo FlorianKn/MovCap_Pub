@@ -72,7 +72,7 @@ def calcMean(arrays):
     return meanValues
 
 
-
+#python -c "from meanGesture import mean; print mean('HAMMER_CURLS')"
 def mean(label):
     getGestures(label);
     elbowFlex = divide(eF);
@@ -105,5 +105,5 @@ def mean(label):
     csvName = label + "_mean.csv" 
     df = pd.DataFrame(allMeans);
 
-    df.to_csv(csvName, index=False, index_label=False)
+    df.to_csv("data/mean/" + csvName, index=False, index_label=False)
 
