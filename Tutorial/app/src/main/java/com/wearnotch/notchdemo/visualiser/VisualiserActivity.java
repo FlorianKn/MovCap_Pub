@@ -562,11 +562,14 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         Bone root = mSkeleton.getRoot();
         Bone foreArm = mSkeleton.getBone("RightForeArm");
         Bone upperArm = mSkeleton.getBone("RightUpperArm");
-        Bone collar = mSkeleton.getBone("RightCollar");
+        //Bone collar = mSkeleton.getBone("RightCollar");
 
         fvec3 chestAngles = new fvec3();
         fvec3 elbowAngles = new fvec3();
-        fvec3 shoulderAngles = new fvec3();
+        //fvec3 shoulderAngles = new fvec3();
+
+        fvec3 shoulderAnglesRoot = new fvec3();
+        mData.calculateRelativeAngle(upperArm, root, frameIndex, shoulderAnglesRoot);
 
         // Calculate forearm angles with respect to upper arm (determine elbow joint angles).
         // Angles correspond to rotations around X,Y and Z axis of the paren bone's coordinate system, respectively.
@@ -574,7 +577,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         // Default orientations are defined in the steady pose (in the skeleton file)
         // Usage: calculateRelativeAngle(Bone child, Bone parent, int frameIndex, fvec3 output)
         mData.calculateRelativeAngle(foreArm, upperArm, frameIndex, elbowAngles);
-        mData.calculateRelativeAngle(upperArm, collar, frameIndex, shoulderAngles);
+        //mData.calculateRelativeAngle(upperArm, collar, frameIndex, shoulderAngles);
 
         // Calculate chest angles with respect root, i.e. absolute angles
         // The root orientation is the always the same as in the steady pose.
@@ -588,9 +591,9 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
         ElbowFlexion.add(elbowAngles.get(0));
         ElbowSupination.add(elbowAngles.get(1));
-        ShoulderFlexion.add(shoulderAngles.get(0));
-        ShoulderAbduction.add(shoulderAngles.get(2));
-        ShoulderRotation.add(shoulderAngles.get(1));
+        ShoulderFlexion.add(shoulderAnglesRoot.get(0));
+        ShoulderAbduction.add(shoulderAnglesRoot.get(2));
+        ShoulderRotation.add(shoulderAnglesRoot.get(1));
 
         // Show angles
         StringBuilder sb = new StringBuilder();
@@ -599,13 +602,13 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                 .append("Extension(+)/flexion(-): ").append((int)elbowAngles.get(0)).append("°\n")
                 // Supination/pronation is rotation around the upperarm's Y-axis
                 .append("Supination(+)/pronation(-): ").append((int)elbowAngles.get(1)).append("°\n")
-                .append("\nShoulderangles1:\n")
+                .append("\nShoulder angels:\n")
                 // Anterior/posterior tilt (forward/backward bend) is rotation around global X axis
-                .append("ShoulderFlexion: ").append((int)shoulderAngles.get(0)).append("°\n")
+                .append("Shoulder Flexion: ").append((int)shoulderAnglesRoot.get(0)).append("°\n")
                 // Rotation to left/right is rotation around the global Y axis
-                .append("ShoulderRotation: ").append((int)shoulderAngles.get(1)).append("°\n")
+                .append("Shoulder Rotation: ").append((int)shoulderAnglesRoot.get(1)).append("°\n")
                 // Lateral tilt (side bend) is rotation around global Z axis
-                .append("ShoulderAbduction: ").append((int)shoulderAngles.get(2)).append("°\n")
+                .append("Shoulder Abduction: ").append((int)shoulderAnglesRoot.get(2)).append("°\n")
                 .append("\nRecognized Gesture: " + label);
 
         mAnglesText.setText(sb.toString());

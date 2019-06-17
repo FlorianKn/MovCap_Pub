@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: __local_aars__:/home/florian/MovCap/Tutorial/app/libs/libandroid_tensorflow_inference_java.jar:unspecified@jar">
+  <library name="Gradle: __local_aars__:/home/florian/back/MovCap/Tutorial/app/libs/libandroid_tensorflow_inference_java.jar:unspecified@jar">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/app/libs/libandroid_tensorflow_inference_java.jar!/" />
     </CLASSES>
