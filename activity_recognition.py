@@ -44,14 +44,14 @@ N_FEATURES = 5 # ElbowFlexion, ElbowSupination, ShoulderFlexion, ShoulderAbducti
 
 # Hyperparameters
 N_LSTM_LAYERS = 2
-N_EPOCHS = 100
+N_EPOCHS = 50
 L2_LOSS = 0.0015
 LEARNING_RATE = 0.0025
 
 # Hyperparameters optimized
 SEGMENT_TIME_SIZE = 30 # each sequence contains 30 training samples
-N_HIDDEN_NEURONS = 30
-BATCH_SIZE = 32
+N_HIDDEN_NEURONS = 100
+BATCH_SIZE = 1
 
 # Returns a tenforflow LSTM NN
 # Input of shape (BATCH_SIZE, SEGMENT_TIME_SIZE, N_FEATURES)

@@ -71,6 +71,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
     private static List<Float> ShoulderRotation;
     private float[] results;
     String label = "";
+    int index = 0;
 
     private static final int REQUEST_OPEN = 1;
 
@@ -595,6 +596,10 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         ShoulderAbduction.add(shoulderAnglesRoot.get(2));
         ShoulderRotation.add(shoulderAnglesRoot.get(1));
 
+
+        String data = "#" + index + ", "+ elbowAngles.get(0) + ", " + elbowAngles.get(1) + ", " + shoulderAnglesRoot.get(0) + ", " + shoulderAnglesRoot.get(2) + ", " + shoulderAnglesRoot.get(1) + ", " + "1" + ", " + "BICEPS_CURLS" + " --&&";
+        index += 1;
+        System.out.println(data);
         // Show angles
         StringBuilder sb = new StringBuilder();
         sb.append("Elbow angles:\n")
