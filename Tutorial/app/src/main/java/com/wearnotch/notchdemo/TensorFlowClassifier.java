@@ -14,7 +14,7 @@ public class TensorFlowClassifier {
     private static final String INPUT_NODE = "X";
     private static final String[] OUTPUT_NODES = {"y_pred_softmax"};
     private static final String OUTPUT_NODE = "y_pred_softmax";
-    private static final long[] INPUT_SIZE = {1, 30, 5};
+    private static final long[] INPUT_SIZE = {1, 150, 5};
     private static final int OUTPUT_SIZE = 4;
 
     public TensorFlowClassifier(final Context context) {

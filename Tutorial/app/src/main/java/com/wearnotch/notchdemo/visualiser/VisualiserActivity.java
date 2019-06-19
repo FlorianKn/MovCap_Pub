@@ -63,7 +63,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
     private TensorFlowClassifier classifier;
     private static final float SECONDARY_TRANSPARENCY = 0.8f;
 
-    private static final int N_SAMPLES = 30;
+    private static final int N_SAMPLES = 150;
     private static List<Float> ElbowFlexion;
     private static List<Float> ElbowSupination;
     private static List<Float> ShoulderFlexion;
@@ -597,9 +597,9 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         ShoulderRotation.add(shoulderAnglesRoot.get(1));
 
 
-        String data = "#" + index + ", "+ elbowAngles.get(0) + ", " + elbowAngles.get(1) + ", " + shoulderAnglesRoot.get(0) + ", " + shoulderAnglesRoot.get(2) + ", " + shoulderAnglesRoot.get(1) + ", " + "1" + ", " + "BICEPS_CURLS" + " --&&";
+        /*String data = "#" + index + ", "+ elbowAngles.get(0) + ", " + elbowAngles.get(1) + ", " + shoulderAnglesRoot.get(0) + ", " + shoulderAnglesRoot.get(2) + ", " + shoulderAnglesRoot.get(1) + ", " + "1" + ", " + "BICEPS_CURLS" + " --&&";
         index += 1;
-        System.out.println(data);
+        System.out.println(data);*/
         // Show angles
         StringBuilder sb = new StringBuilder();
         sb.append("Elbow angles:\n")
