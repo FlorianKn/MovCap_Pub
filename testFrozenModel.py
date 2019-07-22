@@ -70,8 +70,13 @@ with tf.Session() as sess:
    sess.run(tf.local_variables_initializer())
    sess.run(tf.global_variables_initializer())
 
-
    sess.run([acc, acc_op])
-   print(sess.run([acc]))
+   l = sess.run([acc])
+   print('Accuracy: ' + str(l[0]))
+  
+
+
+
+   
 
 
