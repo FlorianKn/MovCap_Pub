@@ -10,7 +10,7 @@ GRAPH_PB_PATH = './frozen_har.pb'
 # Just disables the warning, doesn't enable AVX/FMA
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-DATA_PATH = 'data/alt_data.csv'
+DATA_PATH = 'data/data_ref.csv'
 COLUMN_NAMES = [
     'Time',
     'ElbowFlexion',
@@ -59,9 +59,8 @@ with tf.Session() as sess:
    labels = np.asarray(pd.get_dummies(labels), dtype=np.float32)
 
 
-   X_train, X_test, y_train, y_test = train_test_split(data_convoluted, labels, test_size=0.3,    random_state=RANDOM_SEED)
-
-   
+   X_train, X_test, y_train, y_test = train_test_split(data_convoluted, labels, test_size=0.9,    random_state=RANDOM_SEED)
+   print X_test[0][0]
    # Make predictions
    p_val = predictions.eval(feed_dict={input: X_test})
 

@@ -29,7 +29,7 @@ public class TensorFlowClassifier {
             inferenceInterface.run(OUTPUT_NODES);
             inferenceInterface.fetch(OUTPUT_NODE, result);
         } catch (Exception e){
-            System.out.println(e);
+            System.out.println("Something went wrong: "+ e);
         }
         return result;
     }

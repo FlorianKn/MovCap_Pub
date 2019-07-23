@@ -596,8 +596,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         ShoulderAbduction.add(shoulderAnglesRoot.get(2));
         ShoulderRotation.add(shoulderAnglesRoot.get(1));
 
-
-        /*String data = "#" + index + ", "+ elbowAngles.get(0) + ", " + elbowAngles.get(1) + ", " + shoulderAnglesRoot.get(0) + ", " + shoulderAnglesRoot.get(2) + ", " + shoulderAnglesRoot.get(1) + ", " + "1" + ", " + "BICEPS_CURLS" + " --&&";
+        /*String data = "#" + index + ", "+ elbowAngles.get(0) + ", " + elbowAngles.get(1) + ", " + shoulderAnglesRoot.get(0) + ", " + shoulderAnglesRoot.get(2) + ", " + shoulderAnglesRoot.get(1) + ", " + "1" + ", " + "REVERSE_CURLS" + " --&&";
         index += 1;
         System.out.println(data);*/
         // Show angles
@@ -630,6 +629,8 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
             results = classifier.predictProbabilities(toFloatArray(data));
 
+
+
             ElbowFlexion.clear();
             ElbowSupination.clear();
             ShoulderFlexion.clear();
@@ -654,8 +655,10 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                 return "Biceps";
             }else if(maxIndex == 2) {
                 return "Triceps";
-            } else {
+            } else if (maxIndex == 3) {
                 return "Reverse";
+            } else {
+                return "Nothing";
             }
         }
         return null;
