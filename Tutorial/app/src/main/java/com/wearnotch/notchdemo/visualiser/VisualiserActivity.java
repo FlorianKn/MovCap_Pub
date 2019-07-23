@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslCertificate;
 import android.opengl.GLES20;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import com.wearnotch.framework.Bone;
 import com.wearnotch.framework.Skeleton;
 import com.wearnotch.framework.visualiser.VisualiserData;
+import com.wearnotch.notchdemo.FileReader;
 import com.wearnotch.notchdemo.R;
 import com.wearnotch.notchdemo.TensorFlowClassifier;
 import com.wearnotch.notchdemo.util.Util;
@@ -41,6 +43,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -70,8 +74,16 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
     private static List<Float> ShoulderAbduction;
     private static List<Float> ShoulderRotation;
     private float[] results;
+    boolean oneTime = true;
+    double accuracy = 0;
+    int correctPredictions = 0;
+    int wrongPredictions = 0;
+    int totalPredictions = 0;
+    List<ArrayList<String>> s;
     String label = "";
     int index = 0;
+
+    private FileReader fileReader;
 
     private static final int REQUEST_OPEN = 1;
 
@@ -589,16 +601,40 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
              label = l;
              System.out.println("Label: " + label);
         }
-
+        /*
         ElbowFlexion.add(elbowAngles.get(0));
         ElbowSupination.add(elbowAngles.get(1));
         ShoulderFlexion.add(shoulderAnglesRoot.get(0));
         ShoulderAbduction.add(shoulderAnglesRoot.get(2));
-        ShoulderRotation.add(shoulderAnglesRoot.get(1));
+        ShoulderRotation.add(shoulderAnglesRoot.get(1));*/
 
+
+        if(oneTime){
+            FileReader fileReader = new FileReader();
+             s = fileReader.readFile(this);
+            oneTime = false;
+        }
+
+        ElbowFlexion.add(Float.valueOf(s.get(index).get(1)));
+        ElbowSupination.add(Float.valueOf(s.get(index).get(2)));
+        ShoulderFlexion.add(Float.valueOf(s.get(index).get(3)));
+        ShoulderAbduction.add(Float.valueOf(s.get(index).get(4)));
+        ShoulderRotation.add(Float.valueOf(s.get(index).get(5)));
+
+        if(index < s.size()){
+            index += 1;
+        } else {
+            System.out.println("Correct predictions: " + correctPredictions);
+        }
+
+        /*List<String> sl = fileReader.readFile("data.txt", this);
+        for(int i =0; i < sl.size(); i++) {
+            System.out.println(sl.get(i));
+        }*/
         /*String data = "#" + index + ", "+ elbowAngles.get(0) + ", " + elbowAngles.get(1) + ", " + shoulderAnglesRoot.get(0) + ", " + shoulderAnglesRoot.get(2) + ", " + shoulderAnglesRoot.get(1) + ", " + "1" + ", " + "REVERSE_CURLS" + " --&&";
         index += 1;
         System.out.println(data);*/
+
         // Show angles
         StringBuilder sb = new StringBuilder();
         sb.append("Elbow angles:\n")
@@ -629,7 +665,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
             results = classifier.predictProbabilities(toFloatArray(data));
 
-
+            totalPredictions += 1;
 
             ElbowFlexion.clear();
             ElbowSupination.clear();
@@ -647,19 +683,35 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                     maxIndex = i;
                 }
             }
-
+            String predictedString;
             System.out.println("Prediction: " + results[0] + "," + results[1] + "," + results[2] + "," + results[3]);
             if(maxIndex == 0) {
-                return "Hammer";
+                predictedString =  "HAMMER_CURLS";
             } else if(maxIndex == 1) {
-                return "Biceps";
+                predictedString =  "BICEPS_CURLS";
             }else if(maxIndex == 2) {
-                return "Triceps";
+                predictedString = "TRICEPS_DRUECKEN";
             } else if (maxIndex == 3) {
-                return "Reverse";
+                predictedString = "REVERSE_CURLS";
             } else {
-                return "Nothing";
+                predictedString = "Nothing";
             }
+            System.out.println("-------------------------------------");
+            System.out.println("Predicted string: " + predictedString);
+            System.out.println("Correct string: " + s.get(index).get(7));
+            if(predictedString.equals(s.get(index).get(7))) {
+                correctPredictions +=1;
+                System.out.println("Correct predictions: " + correctPredictions);
+                accuracy = (double) correctPredictions / (double)totalPredictions;
+                System.out.println("Accuracy: " + accuracy);
+            } else {
+                wrongPredictions += 1;
+                System.out.println("Wrong predictions: " + wrongPredictions);
+            }
+            System.out.println("Total predictions: " + totalPredictions);
+            System.out.println("Accuracy: " + accuracy);
+            System.out.println("-------------------------------------");
+            return predictedString;
         }
         return null;
     }

@@ -40,7 +40,7 @@ with tf.Session() as sess:
    # DATA PREPROCESSING
    data_convoluted = []
    labels = []
-   
+
    # Slide a "SEGMENT_TIME_SIZE" wide window with a step size of "TIME_STEP"
    for i in range(0, len(data) - SEGMENT_TIME_SIZE, TIME_STEP):
         eF = data['ElbowFlexion'].values[i: i + SEGMENT_TIME_SIZE]
@@ -58,9 +58,8 @@ with tf.Session() as sess:
    data_convoluted = np.asarray(data_convoluted, dtype=np.float32).transpose(0, 2, 1)
    labels = np.asarray(pd.get_dummies(labels), dtype=np.float32)
 
-
    X_train, X_test, y_train, y_test = train_test_split(data_convoluted, labels, test_size=0.9,    random_state=RANDOM_SEED)
-   print X_test[0][0]
+   print X_test.shape
    # Make predictions
    p_val = predictions.eval(feed_dict={input: X_test})
 
