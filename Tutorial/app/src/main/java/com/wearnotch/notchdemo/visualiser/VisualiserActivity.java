@@ -667,11 +667,17 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
             totalPredictions += 1;
 
-            ElbowFlexion.clear();
+            /*ElbowFlexion.clear();
             ElbowSupination.clear();
             ShoulderFlexion.clear();
             ShoulderAbduction.clear();
-            ShoulderRotation.clear();
+            ShoulderRotation.clear();*/
+            slidingWindow(ElbowFlexion);
+            slidingWindow(ElbowSupination);
+            slidingWindow(ShoulderFlexion);
+            slidingWindow(ShoulderAbduction);
+            slidingWindow(ShoulderRotation);
+            System.out.println("Length of list: " + ElbowSupination.size());
 
             int maxIndex = 0;
             float max = 0;
@@ -714,6 +720,17 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             return predictedString;
         }
         return null;
+    }
+
+    // Delete first 30 values for sliding window
+    private void slidingWindow(List<Float> list){
+        try {
+            for(int i = 0; i < 30; i++) {
+                list.remove(i);
+            }
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     private float[] toFloatArray(List<Float> list) {

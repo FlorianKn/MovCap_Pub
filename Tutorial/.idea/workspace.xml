@@ -17,10 +17,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../testFrozenModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/../testFrozenModel.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,14 +40,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="616" lean-forward="true" selection-start-line="616" selection-end-line="616" />
+            <state relative-caret-position="128">
+              <caret line="617" selection-start-line="617" selection-end-line="617" />
               <folding>
-                <element signature="e#28170#28171#0" expanded="true" />
-                <element signature="e#28221#28222#0" expanded="true" />
+                <element signature="e#29285#29286#0" expanded="true" />
+                <element signature="e#29336#29337#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -64,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/TensorFlowClassifier.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="29" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="29" />
+            <state relative-caret-position="315">
+              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -334,7 +332,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="979" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.21227197" />
@@ -467,17 +464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="616" lean-forward="true" selection-start-line="616" selection-end-line="616" />
-          <folding>
-            <element signature="e#28170#28171#0" expanded="true" />
-            <element signature="e#28221#28222#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/FileReader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
@@ -492,10 +478,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/TensorFlowClassifier.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="29" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="29" />
+        <state relative-caret-position="315">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="617" selection-start-line="617" selection-end-line="617" />
+          <folding>
+            <element signature="e#29285#29286#0" expanded="true" />
+            <element signature="e#29336#29337#0" expanded="true" />
           </folding>
         </state>
       </provider>
