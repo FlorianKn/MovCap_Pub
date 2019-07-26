@@ -9,6 +9,7 @@ public class TensorFlowClassifier {
         System.loadLibrary("tensorflow_inference");
     }
 
+
     private TensorFlowInferenceInterface inferenceInterface;
     private static final String MODEL_FILE = "file:///android_asset/frozen_har.pb";
     private static final String INPUT_NODE = "X";
@@ -25,9 +26,11 @@ public class TensorFlowClassifier {
         float[] result = new float[OUTPUT_SIZE];
 
         try {
+
             inferenceInterface.feed(INPUT_NODE, data, INPUT_SIZE);
             inferenceInterface.run(OUTPUT_NODES);
             inferenceInterface.fetch(OUTPUT_NODE, result);
+
         } catch (Exception e){
             System.out.println("Something went wrong: "+ e);
         }

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileReader {
-    public List<ArrayList<String>>  readFile(Context context){
+    public List<ArrayList<String>> readFile(Context context) {
         try {
 
             List<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
@@ -22,16 +22,18 @@ public class FileReader {
             BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("data.txt")));
 
             String mLine;
-            while((mLine = reader.readLine()) != null) {
+            while ((mLine = reader.readLine()) != null) {
                 list.add(toArrayList(mLine));
             }
             return list;
 
         } catch (IOException e) {
+            System.out.println("Error:---------------------");
             e.printStackTrace();
         }
-        return  null;
+        return null;
     }
+
     private ArrayList<String> toArrayList(String s) {
         String[] commaSeparatedArr = s.split("\\s*,\\s*");
         ArrayList<String> result = new ArrayList<String>(Arrays.asList(commaSeparatedArr));

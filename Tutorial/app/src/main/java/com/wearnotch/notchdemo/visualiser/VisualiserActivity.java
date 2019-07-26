@@ -73,7 +73,10 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
     private static List<Float> ShoulderFlexion;
     private static List<Float> ShoulderAbduction;
     private static List<Float> ShoulderRotation;
+
+    private static List<String> Labels;
     private float[] results;
+    List<Float> data = new ArrayList<>();
     boolean oneTime = true;
     double accuracy = 0;
     int correctPredictions = 0;
@@ -596,6 +599,8 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         // The root orientation is the always the same as in the steady pose.
         mData.calculateRelativeAngle(chest, root, frameIndex, chestAngles);
 
+
+
         String l = activityPrediction();
         if(l != null && l != label) {
              label = l;
@@ -612,6 +617,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         if(oneTime){
             FileReader fileReader = new FileReader();
              s = fileReader.readFile(this);
+
             oneTime = false;
         }
 
@@ -620,6 +626,8 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         ShoulderFlexion.add(Float.valueOf(s.get(index).get(3)));
         ShoulderAbduction.add(Float.valueOf(s.get(index).get(4)));
         ShoulderRotation.add(Float.valueOf(s.get(index).get(5)));
+
+
 
         if(index < s.size()){
             index += 1;
@@ -634,6 +642,10 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         /*String data = "#" + index + ", "+ elbowAngles.get(0) + ", " + elbowAngles.get(1) + ", " + shoulderAnglesRoot.get(0) + ", " + shoulderAnglesRoot.get(2) + ", " + shoulderAnglesRoot.get(1) + ", " + "1" + ", " + "REVERSE_CURLS" + " --&&";
         index += 1;
         System.out.println(data);*/
+
+        //for(int i = 0; i < a.size(); i++){
+          //  System.out.println("Val: " + a.get(i));
+        //}
 
         // Show angles
         StringBuilder sb = new StringBuilder();
@@ -656,28 +668,32 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
     private String activityPrediction() {
         if (ElbowFlexion.size() == N_SAMPLES && ElbowSupination.size() == N_SAMPLES && ShoulderFlexion.size() == N_SAMPLES && ShoulderAbduction.size() == N_SAMPLES && ShoulderRotation.size() == N_SAMPLES) {
-            List<Float> data = new ArrayList<>();
-            data.addAll(ElbowFlexion);
+            //List<Float> data = new ArrayList<>();
+            data = zip(ElbowFlexion, ElbowSupination, ShoulderFlexion, ShoulderAbduction, ShoulderRotation);
+            /*data.addAll(ElbowFlexion);
             data.addAll(ElbowSupination);
             data.addAll(ShoulderFlexion);
             data.addAll(ShoulderAbduction);
-            data.addAll(ShoulderRotation);
+            data.addAll(ShoulderRotation);*/
+
 
             results = classifier.predictProbabilities(toFloatArray(data));
-
+            data.clear();
             totalPredictions += 1;
 
-            /*ElbowFlexion.clear();
+            ElbowFlexion.clear();
             ElbowSupination.clear();
             ShoulderFlexion.clear();
             ShoulderAbduction.clear();
-            ShoulderRotation.clear();*/
-            slidingWindow(ElbowFlexion);
+            ShoulderRotation.clear();
+
+            /*slidingWindow(ElbowFlexion);
             slidingWindow(ElbowSupination);
             slidingWindow(ShoulderFlexion);
             slidingWindow(ShoulderAbduction);
-            slidingWindow(ShoulderRotation);
-            System.out.println("Length of list: " + ElbowSupination.size());
+            slidingWindow(ShoulderRotation);*/
+
+
 
             int maxIndex = 0;
             float max = 0;
@@ -691,7 +707,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             }
             String predictedString;
             System.out.println("Prediction: " + results[0] + "," + results[1] + "," + results[2] + "," + results[3]);
-            if(maxIndex == 0) {
+            /*if(maxIndex == 0) {
                 predictedString =  "HAMMER_CURLS";
             } else if(maxIndex == 1) {
                 predictedString =  "BICEPS_CURLS";
@@ -701,8 +717,19 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                 predictedString = "REVERSE_CURLS";
             } else {
                 predictedString = "Nothing";
+            }*/
+            if(maxIndex == 0) {
+                predictedString =  "BICEPS_CURLS";
+            } else if(maxIndex == 1) {
+                predictedString =  "HAMMER_CURLS";
+            }else if(maxIndex == 2) {
+                predictedString = "REVERSE_CURLS";
+            } else if (maxIndex == 3) {
+                predictedString = "TRICEPS_DRUECKEN";
+            } else {
+                predictedString = "Nothing";
             }
-            System.out.println("-------------------------------------");
+
             System.out.println("Predicted string: " + predictedString);
             System.out.println("Correct string: " + s.get(index).get(7));
             if(predictedString.equals(s.get(index).get(7))) {
@@ -718,7 +745,8 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             System.out.println("Accuracy: " + accuracy);
             System.out.println("-------------------------------------");
             return predictedString;
-        }
+            }
+
         return null;
     }
 
@@ -731,6 +759,18 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         } catch (Exception e){
             System.out.println(e);
         }
+    }
+    // Zip arrays element wise for correct format
+    private List<Float> zip(List<Float> elbowFlexion, List<Float> elbowSupination, List<Float> shoulderFlexion,List<Float> shoulderAbduction, List<Float> shoulderRotation){
+        List<Float> data = new ArrayList<>();
+        for(int i = 0; i < elbowFlexion.size(); i++) {
+            data.add(elbowFlexion.get(i));
+            data.add(elbowSupination.get(i));
+            data.add(shoulderFlexion.get(i));
+            data.add(shoulderAbduction.get(i));
+            data.add(shoulderRotation.get(i));
+        }
+        return data;
     }
 
     private float[] toFloatArray(List<Float> list) {

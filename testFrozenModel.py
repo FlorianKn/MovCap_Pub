@@ -24,6 +24,7 @@ COLUMN_NAMES = [
 SEGMENT_TIME_SIZE = 150
 TIME_STEP = 30
 RANDOM_SEED = 13
+N_FEATURES = 5
 
 with tf.Session() as sess:
    print("load graph")
@@ -58,11 +59,14 @@ with tf.Session() as sess:
    data_convoluted = np.asarray(data_convoluted, dtype=np.float32).transpose(0, 2, 1)
    labels = np.asarray(pd.get_dummies(labels), dtype=np.float32)
 
-   X_train, X_test, y_train, y_test = train_test_split(data_convoluted, labels, test_size=0.9,    random_state=RANDOM_SEED)
+   X_train, X_test, y_train, y_test = train_test_split(data_convoluted, labels, test_size=0.7,    random_state=RANDOM_SEED)
+   print len(X_test)
    print X_test.shape
+
+#np.savetxt('test.txt', X_test)
+  
    # Make predictions
    p_val = predictions.eval(feed_dict={input: X_test})
-
    
    acc, acc_op = tf.metrics.accuracy(labels=tf.argmax(y_test, 1), predictions=tf.argmax(p_val,1))
    sess.run(tf.local_variables_initializer())

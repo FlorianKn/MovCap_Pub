@@ -18,7 +18,13 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/frozen_har.pb" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/frozen_har.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/FileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/FileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/TensorFlowClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/TensorFlowClassifier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../data/fig/error_plot.png" beforeDir="false" afterPath="$PROJECT_DIR$/../data/fig/error_plot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frozen_har.pb" beforeDir="false" afterPath="$PROJECT_DIR$/../frozen_har.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../testFrozenModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/../testFrozenModel.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,21 +49,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="617" selection-start-line="617" selection-end-line="617" />
+            <state relative-caret-position="163">
+              <caret line="713" column="37" lean-forward="true" selection-start-line="713" selection-start-column="37" selection-end-line="713" selection-end-column="37" />
               <folding>
-                <element signature="e#29285#29286#0" expanded="true" />
-                <element signature="e#29336#29337#0" expanded="true" />
+                <element signature="e#30885#30886#0" expanded="true" />
+                <element signature="e#30936#30937#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/assets/data.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38775">
-              <caret line="2585" column="58" selection-start-line="2585" selection-start-column="58" selection-end-line="2585" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -65,8 +62,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/TensorFlowClassifier.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+            <state relative-caret-position="373">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -77,13 +74,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/FileReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
+            <state relative-caret-position="223">
+              <caret line="16" column="62" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#488#507#0" expanded="true" />
-                <element signature="e#1047#1055#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/data.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-173">
+              <caret line="6772" column="76" selection-start-line="6772" selection-start-column="76" selection-end-line="6772" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -99,25 +103,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>180</find>
-      <find>syste</find>
-      <find>prediction</find>
-      <find>predict</find>
-      <find>30</find>
-      <find>some pr</find>
-      <find>system.out.</find>
-      <find>data</find>
-      <find>N_SAMPLES</find>
-      <find>ElbowFlexion</find>
-      <find>150</find>
-      <find>tofloata</find>
-      <find>not</find>
-      <find>tenso</find>
-      <find>Syste</find>
-      <find>shit</find>
       <find>shouldwok</find>
       <find>Hammer</find>
-      <find>system.</find>
       <find>system.out</find>
       <find>TensorFlowClassifi</find>
       <find>onetime</find>
@@ -129,6 +116,23 @@
       <find>rever</find>
       <find>accur</find>
       <find>accu</find>
+      <find>zip</find>
+      <find>data</find>
+      <find>system.</find>
+      <find>Tensorf</find>
+      <find>predict</find>
+      <find>res</find>
+      <find>label</find>
+      <find>correct pre</find>
+      <find>value</find>
+      <find>length</find>
+      <find>System.ou</find>
+      <find>-99.78741</find>
+      <find>len</find>
+      <find>Data</find>
+      <find>-51.003822</find>
+      <find>BICEPS</find>
+      <find>Correct string: HAMMER_CURLS</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,8 +145,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/MainFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/raw/config_3_right_arm.js" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/TensorFlowClassifier.java" />
         <option value="$PROJECT_DIR$/app/src/main/assets/data.txt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/TensorFlowClassifier.java" />
+        <option value="$PROJECT_DIR$/app/src/main/assets/dataT.txt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/FileReader.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java" />
       </list>
@@ -214,9 +219,9 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -331,7 +336,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="979" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="987" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.21227197" />
@@ -342,14 +347,14 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.45305166" />
-      <window_info anchor="bottom" id="Logcat" order="1" weight="0.5140845" />
-      <window_info anchor="bottom" id="TODO" order="2" weight="0.3298122" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.6257601" visible="true" weight="0.43075117" />
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.6821448" weight="0.35211268" />
+      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.4997236" weight="0.3298122" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.3298122" />
-      <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.37423992" side_tool="true" visible="true" weight="0.43075117" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.3298122" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.20422535" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.4997236" weight="0.20422535" />
       <window_info anchor="bottom" id="Find" order="8" />
       <window_info anchor="bottom" id="Android Profiler" order="9" weight="0.3298122" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
@@ -450,49 +455,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-26/android/os/CountDownTimer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="126" selection-start-line="126" selection-end-line="126" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/MainFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
+        <state relative-caret-position="175">
+          <caret line="569" selection-start-line="569" selection-end-line="569" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/data.txt">
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3852dcfafca0522707a6bd9a2410e328/jars/classes.jar!/com/wearnotch/service/network/impl/operation/y.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38775">
-          <caret line="2585" column="58" selection-start-line="2585" selection-start-column="58" selection-end-line="2585" selection-end-column="71" />
+        <state relative-caret-position="183">
+          <caret line="451" selection-start-line="451" selection-end-line="451" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/FileReader.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/dataT.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#488#507#0" expanded="true" />
-            <element signature="e#1047#1055#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="187571" selection-start-column="187571" selection-end-column="187571" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/TensorFlowClassifier.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+        <state relative-caret-position="373">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/FileReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="16" column="62" selection-start-line="16" selection-start-column="62" selection-end-line="16" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/data.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-173">
+          <caret line="6772" column="76" selection-start-line="6772" selection-start-column="76" selection-end-line="6772" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wearnotch/notchdemo/visualiser/VisualiserActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="617" selection-start-line="617" selection-end-line="617" />
+        <state relative-caret-position="163">
+          <caret line="713" column="37" lean-forward="true" selection-start-line="713" selection-start-column="37" selection-end-line="713" selection-end-column="37" />
           <folding>
-            <element signature="e#29285#29286#0" expanded="true" />
-            <element signature="e#29336#29337#0" expanded="true" />
+            <element signature="e#30885#30886#0" expanded="true" />
+            <element signature="e#30936#30937#0" expanded="true" />
           </folding>
         </state>
       </provider>
