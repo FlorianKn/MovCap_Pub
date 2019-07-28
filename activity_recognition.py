@@ -33,7 +33,7 @@ LABELS = [
     'REVERSE_CURLS'
 ]
 
-DATA_PATH = 'data/data_xxl.csv'
+DATA_PATH = 'data/alt_data.csv'
 RANDOM_SEED = 13
 
 # Data preprocessing
@@ -49,9 +49,9 @@ L2_LOSS = 0.0015
 LEARNING_RATE = 0.0025
 
 # Hyperparameters optimized
-SEGMENT_TIME_SIZE = 30 # each sequence contains 30 training samples
-N_HIDDEN_NEURONS = 30
-BATCH_SIZE = 32
+SEGMENT_TIME_SIZE = 150 # each sequence contains 30 training samples
+N_HIDDEN_NEURONS = 100
+BATCH_SIZE = 150
 
 # Returns a tenforflow LSTM NN
 # Input of shape (BATCH_SIZE, SEGMENT_TIME_SIZE, N_FEATURES)

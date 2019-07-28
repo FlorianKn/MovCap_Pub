@@ -4,7 +4,7 @@ import pandas as pd
 import csv
 
 columns = ['Time','ElbowFlexion','ElbowSupination', 'ShoulderFlexion', 'ShoulderRotation', 'User', 'Label']
-df = pd.read_csv('data/data.csv', header = None, names = columns)
+df = pd.read_csv('data/alt_data.csv', header = None, names = columns)
 df.head()
 # Without first header
 df = df.iloc[2:]
@@ -16,8 +16,8 @@ def plotLabels():
 def plotActivity(label):
     x, eF, eS, sF, sA, sR = [],[],[],[],[],[]	
     counter = 0;
-	
-    with open('data/data.csv', 'r') as csvfile:
+    	
+    with open('data/alt_data.csv', 'r') as csvfile:
         plots= csv.reader(csvfile, delimiter=',')
         for row in plots:
             if row[0] != "Time":
