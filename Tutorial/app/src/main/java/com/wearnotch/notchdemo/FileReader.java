@@ -18,7 +18,6 @@ public class FileReader {
         try {
 
             List<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
-            //InputStream is = context.getAssets().open("data.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("data.txt")));
 
             String mLine;

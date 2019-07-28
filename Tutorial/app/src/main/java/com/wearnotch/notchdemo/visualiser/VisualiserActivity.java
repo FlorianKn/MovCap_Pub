@@ -82,7 +82,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
     int correctPredictions = 0;
     int wrongPredictions = 0;
     int totalPredictions = 0;
-    List<ArrayList<String>> s;
+    //List<ArrayList<String>> s;
     String label = "";
     int index = 0;
 
@@ -606,34 +606,34 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
              label = l;
              System.out.println("Label: " + label);
         }
-        /*
+
         ElbowFlexion.add(elbowAngles.get(0));
         ElbowSupination.add(elbowAngles.get(1));
         ShoulderFlexion.add(shoulderAnglesRoot.get(0));
         ShoulderAbduction.add(shoulderAnglesRoot.get(2));
-        ShoulderRotation.add(shoulderAnglesRoot.get(1));*/
+        ShoulderRotation.add(shoulderAnglesRoot.get(1));
 
 
-        if(oneTime){
+        /*if(oneTime){
             FileReader fileReader = new FileReader();
              s = fileReader.readFile(this);
 
             oneTime = false;
-        }
+        }*/
 
-        ElbowFlexion.add(Float.valueOf(s.get(index).get(1)));
+        /*ElbowFlexion.add(Float.valueOf(s.get(index).get(1)));
         ElbowSupination.add(Float.valueOf(s.get(index).get(2)));
         ShoulderFlexion.add(Float.valueOf(s.get(index).get(3)));
         ShoulderAbduction.add(Float.valueOf(s.get(index).get(4)));
-        ShoulderRotation.add(Float.valueOf(s.get(index).get(5)));
+        ShoulderRotation.add(Float.valueOf(s.get(index).get(5)));*/
 
 
 
-        if(index < s.size()){
+        /*if(index < s.size()){
             index += 1;
         } else {
             System.out.println("Correct predictions: " + correctPredictions);
-        }
+        }*/
 
         /*List<String> sl = fileReader.readFile("data.txt", this);
         for(int i =0; i < sl.size(); i++) {
@@ -668,32 +668,17 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
     private String activityPrediction() {
         if (ElbowFlexion.size() == N_SAMPLES && ElbowSupination.size() == N_SAMPLES && ShoulderFlexion.size() == N_SAMPLES && ShoulderAbduction.size() == N_SAMPLES && ShoulderRotation.size() == N_SAMPLES) {
-            //List<Float> data = new ArrayList<>();
             data = zip(ElbowFlexion, ElbowSupination, ShoulderFlexion, ShoulderAbduction, ShoulderRotation);
-            /*data.addAll(ElbowFlexion);
-            data.addAll(ElbowSupination);
-            data.addAll(ShoulderFlexion);
-            data.addAll(ShoulderAbduction);
-            data.addAll(ShoulderRotation);*/
-
 
             results = classifier.predictProbabilities(toFloatArray(data));
             data.clear();
             totalPredictions += 1;
 
-            ElbowFlexion.clear();
-            ElbowSupination.clear();
-            ShoulderFlexion.clear();
-            ShoulderAbduction.clear();
-            ShoulderRotation.clear();
-
-            /*slidingWindow(ElbowFlexion);
+            slidingWindow(ElbowFlexion);
             slidingWindow(ElbowSupination);
             slidingWindow(ShoulderFlexion);
             slidingWindow(ShoulderAbduction);
-            slidingWindow(ShoulderRotation);*/
-
-
+            slidingWindow(ShoulderRotation);
 
             int maxIndex = 0;
             float max = 0;
@@ -707,17 +692,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             }
             String predictedString;
             System.out.println("Prediction: " + results[0] + "," + results[1] + "," + results[2] + "," + results[3]);
-            /*if(maxIndex == 0) {
-                predictedString =  "HAMMER_CURLS";
-            } else if(maxIndex == 1) {
-                predictedString =  "BICEPS_CURLS";
-            }else if(maxIndex == 2) {
-                predictedString = "TRICEPS_DRUECKEN";
-            } else if (maxIndex == 3) {
-                predictedString = "REVERSE_CURLS";
-            } else {
-                predictedString = "Nothing";
-            }*/
+
             if(maxIndex == 0) {
                 predictedString =  "BICEPS_CURLS";
             } else if(maxIndex == 1) {
@@ -731,7 +706,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             }
 
             System.out.println("Predicted string: " + predictedString);
-            System.out.println("Correct string: " + s.get(index).get(7));
+            /*System.out.println("Correct string: " + s.get(index).get(7));
             if(predictedString.equals(s.get(index).get(7))) {
                 correctPredictions +=1;
                 System.out.println("Correct predictions: " + correctPredictions);
@@ -743,7 +718,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             }
             System.out.println("Total predictions: " + totalPredictions);
             System.out.println("Accuracy: " + accuracy);
-            System.out.println("-------------------------------------");
+            System.out.println("-------------------------------------");*/
             return predictedString;
             }
 
