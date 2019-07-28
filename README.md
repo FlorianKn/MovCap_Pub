@@ -28,6 +28,7 @@ Afterwards run `python prepareNotchData.py`.
 Run `python activity_recognition.py` to train and test the model.  
 After running the script results (accuracy, loss and graphs) are displayed on TensorBoard.  
 Run `tensorboard --logdir=data/summary`  
+  
 ![Tensorbord](data/fig/Tensorboard.png)  
 ## Export model to Android  
 Run `python freezeModel.py` to freeze the model.  
