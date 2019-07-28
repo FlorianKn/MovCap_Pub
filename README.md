@@ -14,7 +14,10 @@ Hammer curls:
 ![Hammer](data/fig/HAMMER.png)  
   
 Triceps:  
-![Triceps](data/fig/TRICEPS.png)  
+![Triceps](data/fig/TRICEPS.png) 
+  
+Four movements: Biceps curls, hammer curls, reverse curls, dumbbell tricep extension  
+![Alt Text](data/fig/Motion.gif)  
 ## Prepare notch data  
 Angles of the notch sensors are stored in csv files. To put those files (Angles_RightElbow.csv and Angles_RightShoulder.csv) in an appropriate format *prepareNotchData.py* can be used. Before running the script adapt the following lines in *prepareNotchData.py*:  
 ```python
