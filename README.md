@@ -33,7 +33,7 @@ Run `tensorboard --logdir=data/summary`
 ## Export model to Android  
 Run `python freezeModel.py` to freeze the model.  
 Copy the generated `frozen_har.pb` into the asset folder of an android-studio project.  
-To test the forzend model, run `python testFrozenModel.py`  
+To test the frozen model, run `python testFrozenModel.py`  
   
 Most important part can be seen below:
 
