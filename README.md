@@ -85,7 +85,7 @@ public class MainFragment extends BaseFragment {
 }
 ```  
 Username and password also need to be added in *build.gradle*  
-```
+```groovy
 maven {
     url 'https://wearnotch.com/maven/notch/'
     credentials {
@@ -95,5 +95,6 @@ maven {
 }
 ```
 To get license code, username and password login to https://wearnotch.com/login/?next=/developers/
-and navigate to dashboard. Hit details and press Licenses button to get a license code and Credentials for username and password.
+and navigate to dashboard. Hit details and press Licenses button to get a license code and Credentials for username and password.  
+### How it works
 
