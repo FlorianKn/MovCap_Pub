@@ -77,7 +77,7 @@ The screen of *HarApp* can be seen below:
 *HarApp to test neural network on android, it doesn't use notch sensors*  
 ## Notch App  
 ### Setup
-Notch app called *Tutorial* can be downloaded from https://wearnotch.com/developers/docs/sdk/android/  
+Notch app called *Tutorial* can be downloaded from https://wearnotch.com/developers/docs/sdk/android/.  
 This app was used for further implementations. To use it, a license code needs to be added in *Tutorial/app/src/main/java/com/wearnotch/notchdemo/MainFragment.java*  
  ```java
 public class MainFragment extends BaseFragment {
