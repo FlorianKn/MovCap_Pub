@@ -76,6 +76,11 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
     private static List<Float> ShoulderAbduction;
     private static List<Float> ShoulderRotation;
     private DTW dynamicTimeWarping;
+    private double elbowFlexionDistance;
+    private double elbowSupinationDistance;
+    private double shoulderFlexionDistance;
+    private double shoulderAbductionDistance;
+    private double shoulderRotationDistance;
 
     private static List<String> Labels;
     private float[] results;
@@ -202,22 +207,44 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         List<ArrayList<String>> reverseCurlsReference = fileReader.readFile(this, "reverse.txt");
         List<ArrayList<String>> tricepsReference = fileReader.readFile(this, "triceps.txt");
 
+        List<ArrayList<Float>> hammerFloatRef = stringToFloat(hammerCurlsReference);
+        List<ArrayList<Float>> bicepsFloatRef = stringToFloat(bicepsCurlsReference);
+        List<ArrayList<Float>> reverseFloatRef = stringToFloat(reverseCurlsReference);
+        List<ArrayList<Float>> tricepsFloatRef = stringToFloat(tricepsReference);
 
-        Movement hammerCurls = new Movement(stringToFloat(hammerCurlsReference.get(1)), stringToFloat(hammerCurlsReference.get(2)), stringToFloat(hammerCurlsReference.get(3)), stringToFloat(hammerCurlsReference.get(4)), stringToFloat(hammerCurlsReference.get(5)));
-        Movement bicepsCurls = new Movement(stringToFloat(bicepsCurlsReference.get(1)), stringToFloat(bicepsCurlsReference.get(2)), stringToFloat(bicepsCurlsReference.get(3)), stringToFloat(bicepsCurlsReference.get(4)), stringToFloat(bicepsCurlsReference.get(5)));
-        Movement reverseCurls = new Movement(stringToFloat(reverseCurlsReference.get(1)), stringToFloat(reverseCurlsReference.get(2)), stringToFloat(reverseCurlsReference.get(3)), stringToFloat(reverseCurlsReference.get(4)), stringToFloat(reverseCurlsReference.get(5)));
-        Movement tricepsCurls = new Movement(stringToFloat(tricepsReference.get(1)), stringToFloat(tricepsReference.get(2)), stringToFloat(tricepsReference.get(3)), stringToFloat(tricepsReference.get(4)), stringToFloat(tricepsReference.get(5)));
+        System.out.println("Size: " + hammerFloatRef.size());
+        Movement hammerCurls = new Movement(hammerFloatRef.get(0), hammerFloatRef.get(1), hammerFloatRef.get(2), hammerFloatRef.get(3), hammerFloatRef.get(4));
+        Movement bicepsCurls = new Movement(bicepsFloatRef.get(0), bicepsFloatRef.get(1), bicepsFloatRef.get(2), bicepsFloatRef.get(3), bicepsFloatRef.get(4));
+        Movement reverseCurls = new Movement(reverseFloatRef.get(0), reverseFloatRef.get(1), reverseFloatRef.get(2), reverseFloatRef.get(3), reverseFloatRef.get(4));
+        Movement triceps = new Movement(tricepsFloatRef.get(0), tricepsFloatRef.get(1), tricepsFloatRef.get(2), tricepsFloatRef.get(3), tricepsFloatRef.get(4));
 
-        dynamicTimeWarping = new DTW(bicepsCurls, hammerCurls, tricepsCurls, reverseCurls);
+        dynamicTimeWarping = new DTW(bicepsCurls, hammerCurls, triceps, reverseCurls);
         classifier = new TensorFlowClassifier(this);
     }
 
-    private ArrayList<Float> stringToFloat(ArrayList<String> s){
-        ArrayList<Float> floatList = null;
+    private List<ArrayList<Float>> stringToFloat(List<ArrayList<String>> s){
+        List<ArrayList<Float>> floatList = new ArrayList<>();
+
+        ArrayList<Float> elbowFlexion = new ArrayList<Float>();
+        ArrayList<Float> elbowSupination = new ArrayList<Float>();
+        ArrayList<Float> shoulderFlexion = new ArrayList<Float>();
+        ArrayList<Float> shoulderAbduction = new ArrayList<Float>();
+        ArrayList<Float> shoulderRotation = new ArrayList<Float>();
+
         for(int i = 0 ; i < s.size(); i++) {
-            floatList.add(Float.valueOf(s.get(i)));
+            elbowFlexion.add(Float.valueOf(s.get(i).get(1)));
+            elbowSupination.add(Float.valueOf(s.get(i).get(2)));
+            shoulderFlexion.add(Float.valueOf(s.get(i).get(3)));
+            shoulderAbduction.add(Float.valueOf(s.get(i).get(4)));
+            shoulderRotation.add(Float.valueOf(s.get(i).get(5)));
         }
-        return  floatList;
+        floatList.add(elbowFlexion);
+        floatList.add(elbowSupination);
+        floatList.add(shoulderFlexion);
+        floatList.add(shoulderAbduction);
+        floatList.add(shoulderRotation);
+
+        return floatList;
     }
 
     @Subscribe
@@ -686,7 +713,12 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                 .append("Shoulder Rotation: ").append((int)shoulderAnglesRoot.get(1)).append("°\n")
                 // Lateral tilt (side bend) is rotation around global Z axis
                 .append("Shoulder Abduction: ").append((int)shoulderAnglesRoot.get(2)).append("°\n")
-                .append("\nRecognized Gesture: " + label);
+                .append("\nRecognized Gesture: " + label + "\n")
+                .append("elbow flexion distance: " + (int) elbowFlexionDistance + "\n")
+                .append("elbow supination distance: " + (int) elbowSupinationDistance + "\n")
+                .append("shoulder flexion distance: " + (int) shoulderFlexionDistance + "\n")
+                .append("shoulder abduction distance: " + (int) shoulderAbductionDistance + "\n")
+                .append("shoulder rotation distance: " + (int) shoulderRotationDistance + "\n");
 
         mAnglesText.setText(sb.toString());
     }
@@ -698,13 +730,6 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             results = classifier.predictProbabilities(toFloatArray(data));
             data.clear();
             totalPredictions += 1;
-
-            dynamicTimeWarping.compute(toFloatArray(ElbowFlexion), toFloatArray(dynamicTimeWarping.getBicepsReference().getElbowFlexion()));
-            slidingWindow(ElbowFlexion);
-            slidingWindow(ElbowSupination);
-            slidingWindow(ShoulderFlexion);
-            slidingWindow(ShoulderAbduction);
-            slidingWindow(ShoulderRotation);
 
             int maxIndex = 0;
             float max = 0;
@@ -721,17 +746,45 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
 
             if(maxIndex == 0) {
                 predictedString =  "BICEPS_CURLS";
+                elbowFlexionDistance = dynamicTimeWarping.compute(toFloatArray(ElbowFlexion), toFloatArray(dynamicTimeWarping.getBicepsReference().getElbowFlexion())).getDistance();
+                elbowSupinationDistance = dynamicTimeWarping.compute(toFloatArray(ElbowSupination), toFloatArray(dynamicTimeWarping.getBicepsReference().getElbowSupination())).getDistance();
+                shoulderFlexionDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderFlexion), toFloatArray(dynamicTimeWarping.getBicepsReference().getShoulderFlexion())).getDistance();
+                shoulderAbductionDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderAbduction), toFloatArray(dynamicTimeWarping.getBicepsReference().getShoulderAbduction())).getDistance();
+                shoulderRotationDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderRotation), toFloatArray(dynamicTimeWarping.getBicepsReference().getShoulderRotation())).getDistance();
             } else if(maxIndex == 1) {
                 predictedString =  "HAMMER_CURLS";
+                elbowFlexionDistance = dynamicTimeWarping.compute(toFloatArray(ElbowFlexion), toFloatArray(dynamicTimeWarping.getHammerReference().getElbowFlexion())).getDistance();
+                elbowSupinationDistance = dynamicTimeWarping.compute(toFloatArray(ElbowSupination), toFloatArray(dynamicTimeWarping.getHammerReference().getElbowSupination())).getDistance();
+                shoulderFlexionDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderFlexion), toFloatArray(dynamicTimeWarping.getHammerReference().getShoulderFlexion())).getDistance();
+                shoulderAbductionDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderAbduction), toFloatArray(dynamicTimeWarping.getHammerReference().getShoulderAbduction())).getDistance();
+                shoulderRotationDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderRotation), toFloatArray(dynamicTimeWarping.getHammerReference().getShoulderRotation())).getDistance();
             }else if(maxIndex == 2) {
                 predictedString = "REVERSE_CURLS";
+                elbowFlexionDistance = dynamicTimeWarping.compute(toFloatArray(ElbowFlexion), toFloatArray(dynamicTimeWarping.getReverseReference().getElbowFlexion())).getDistance();
+                elbowSupinationDistance = dynamicTimeWarping.compute(toFloatArray(ElbowSupination), toFloatArray(dynamicTimeWarping.getReverseReference().getElbowSupination())).getDistance();
+                shoulderFlexionDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderFlexion), toFloatArray(dynamicTimeWarping.getReverseReference().getShoulderFlexion())).getDistance();
+                shoulderAbductionDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderAbduction), toFloatArray(dynamicTimeWarping.getReverseReference().getShoulderAbduction())).getDistance();
+                shoulderRotationDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderRotation), toFloatArray(dynamicTimeWarping.getReverseReference().getShoulderRotation())).getDistance();
+
             } else if (maxIndex == 3) {
                 predictedString = "TRICEPS_DRUECKEN";
+                elbowFlexionDistance = dynamicTimeWarping.compute(toFloatArray(ElbowFlexion), toFloatArray(dynamicTimeWarping.getTricepsReference().getElbowFlexion())).getDistance();
+                elbowSupinationDistance = dynamicTimeWarping.compute(toFloatArray(ElbowSupination), toFloatArray(dynamicTimeWarping.getTricepsReference().getElbowSupination())).getDistance();
+                shoulderFlexionDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderFlexion), toFloatArray(dynamicTimeWarping.getTricepsReference().getShoulderFlexion())).getDistance();
+                shoulderAbductionDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderAbduction), toFloatArray(dynamicTimeWarping.getTricepsReference().getShoulderAbduction())).getDistance();
+                shoulderRotationDistance = dynamicTimeWarping.compute(toFloatArray(ShoulderRotation), toFloatArray(dynamicTimeWarping.getTricepsReference().getShoulderRotation())).getDistance();
+
             } else {
                 predictedString = "Nothing";
             }
+            slidingWindow(ElbowFlexion);
+            slidingWindow(ElbowSupination);
+            slidingWindow(ShoulderFlexion);
+            slidingWindow(ShoulderAbduction);
+            slidingWindow(ShoulderRotation);
 
-            System.out.println("Predicted string: " + predictedString);
+            System.out.println("Distances: EF: " + elbowFlexionDistance + "ES: " + elbowSupinationDistance + "SF: " + shoulderFlexionDistance + "SA: " + shoulderAbductionDistance + "SR: " + shoulderRotationDistance );
+
             /*System.out.println("Correct string: " + s.get(index).get(7));
             if(predictedString.equals(s.get(index).get(7))) {
                 correctPredictions +=1;

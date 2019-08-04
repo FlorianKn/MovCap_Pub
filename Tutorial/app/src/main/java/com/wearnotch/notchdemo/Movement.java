@@ -8,6 +8,11 @@ public class Movement {
     private ArrayList<Float> ElbowSupination;
     private ArrayList<Float> ShoulderFlexion;
     private ArrayList<Float> ShoulderAbduction;
+
+    public ArrayList<Float> getShoulderRotation() {
+        return ShoulderRotation;
+    }
+
     private ArrayList<Float> ShoulderRotation;
 
 
