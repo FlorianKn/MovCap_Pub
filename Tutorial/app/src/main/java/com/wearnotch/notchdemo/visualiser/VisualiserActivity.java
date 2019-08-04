@@ -27,7 +27,9 @@ import android.widget.Toast;
 import com.wearnotch.framework.Bone;
 import com.wearnotch.framework.Skeleton;
 import com.wearnotch.framework.visualiser.VisualiserData;
+import com.wearnotch.notchdemo.DTW;
 import com.wearnotch.notchdemo.FileReader;
+import com.wearnotch.notchdemo.Movement;
 import com.wearnotch.notchdemo.R;
 import com.wearnotch.notchdemo.TensorFlowClassifier;
 import com.wearnotch.notchdemo.util.Util;
@@ -73,6 +75,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
     private static List<Float> ShoulderFlexion;
     private static List<Float> ShoulderAbduction;
     private static List<Float> ShoulderRotation;
+    private DTW dynamicTimeWarping;
 
     private static List<String> Labels;
     private float[] results;
@@ -192,7 +195,29 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
         ShoulderAbduction = new ArrayList<>();
         ShoulderRotation = new ArrayList<>();
 
+        FileReader fileReader = new FileReader();
+
+        List<ArrayList<String>> hammerCurlsReference = fileReader.readFile(this, "hammer.txt");
+        List<ArrayList<String>> bicepsCurlsReference = fileReader.readFile(this, "biceps.txt");
+        List<ArrayList<String>> reverseCurlsReference = fileReader.readFile(this, "reverse.txt");
+        List<ArrayList<String>> tricepsReference = fileReader.readFile(this, "triceps.txt");
+
+
+        Movement hammerCurls = new Movement(stringToFloat(hammerCurlsReference.get(1)), stringToFloat(hammerCurlsReference.get(2)), stringToFloat(hammerCurlsReference.get(3)), stringToFloat(hammerCurlsReference.get(4)), stringToFloat(hammerCurlsReference.get(5)));
+        Movement bicepsCurls = new Movement(stringToFloat(bicepsCurlsReference.get(1)), stringToFloat(bicepsCurlsReference.get(2)), stringToFloat(bicepsCurlsReference.get(3)), stringToFloat(bicepsCurlsReference.get(4)), stringToFloat(bicepsCurlsReference.get(5)));
+        Movement reverseCurls = new Movement(stringToFloat(reverseCurlsReference.get(1)), stringToFloat(reverseCurlsReference.get(2)), stringToFloat(reverseCurlsReference.get(3)), stringToFloat(reverseCurlsReference.get(4)), stringToFloat(reverseCurlsReference.get(5)));
+        Movement tricepsCurls = new Movement(stringToFloat(tricepsReference.get(1)), stringToFloat(tricepsReference.get(2)), stringToFloat(tricepsReference.get(3)), stringToFloat(tricepsReference.get(4)), stringToFloat(tricepsReference.get(5)));
+
+        dynamicTimeWarping = new DTW(bicepsCurls, hammerCurls, tricepsCurls, reverseCurls);
         classifier = new TensorFlowClassifier(this);
+    }
+
+    private ArrayList<Float> stringToFloat(ArrayList<String> s){
+        ArrayList<Float> floatList = null;
+        for(int i = 0 ; i < s.size(); i++) {
+            floatList.add(Float.valueOf(s.get(i)));
+        }
+        return  floatList;
     }
 
     @Subscribe
@@ -674,6 +699,7 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
             data.clear();
             totalPredictions += 1;
 
+            dynamicTimeWarping.compute(toFloatArray(ElbowFlexion), toFloatArray(dynamicTimeWarping.getBicepsReference().getElbowFlexion()));
             slidingWindow(ElbowFlexion);
             slidingWindow(ElbowSupination);
             slidingWindow(ShoulderFlexion);
