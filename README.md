@@ -13,8 +13,14 @@ The data was generated with three notch sensors, see image below:
 ![Fig1](data/fig/fig1.png)  
 
 `python -c "from plot import plotActivity; print plotActivity('HAMMER_CURLS')"`  
+Biceps curls:  
+![Biceps](data/fig/BICEPS.png)  
+
 Hammer curls:  
 ![Hammer](data/fig/HAMMER.png)  
+  
+Reverse curls:  
+![Reverse](data/fig/REVERSE.png)  
   
 Triceps:  
 ![Triceps](data/fig/TRICEPS.png) 
@@ -102,7 +108,8 @@ and navigate to dashboard. Hit details and press Licenses button to get a licens
 ### How it works  
 To classify movements `frozen_har.pb` can be used like shown above. The distance between a recognized gesture and a reference gesture is computed with the dynamic time warping algorithm.  
   
-![notch_tutorial](data/fig/notch_tutorial.gif)
+![notch_tutorial](data/fig/notch_tutorial.gif)  
+*Video in good quality /data/fig/notch_tutorial.mp4*
 ## Credits  
 https://medium.com/@curiousily/human-activity-recognition-using-lstms-on-android-tensorflow-for-hackers-part-vi-492da5adef64  
 https://github.com/bartkowiaktomasz/har-wisdm-lstm-rnns
