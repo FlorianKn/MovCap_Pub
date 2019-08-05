@@ -97,5 +97,7 @@ maven {
 To get license code, username and password login to https://wearnotch.com/login/?next=/developers/
 and navigate to dashboard. Hit details and press Licenses button to get a license code and Credentials for username and password.  
 ### How it works  
+To classify movements *frozen_har.pb* can be used like shown above. The distance between a recognized gesture and a reference gesture is computed with the dynamic time warping algorithm.
 ![notch_tutorial](data/fig/notch_tutorial.gif)
+## Credits
 
