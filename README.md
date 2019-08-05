@@ -13,6 +13,7 @@ The data was generated with three notch sensors, see image below:
 ![Fig1](data/fig/fig1.png)  
 
 `python -c "from plot import plotActivity; print plotActivity('HAMMER_CURLS')"`  
+    
 Biceps curls:  
 ![Biceps](data/fig/BICEPS.png)  
 
