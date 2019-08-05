@@ -1,5 +1,8 @@
 # MovCap
 Capture and classify movements with NN  
+
+## Goal
+Goal of this students project is to train a neural network with Tensorflow to recognize movements. Therefore *notch sensors* (Accelerometer, Gyroscope, Magnetometer) are used to track motion. The network predicts on live data and can be exported to android smartphones. Concrete feedback on the quality of motion is given.  
 ## Generate data  
 The data was generated with three notch sensors, see image below:  
   
@@ -97,7 +100,9 @@ maven {
 To get license code, username and password login to https://wearnotch.com/login/?next=/developers/
 and navigate to dashboard. Hit details and press Licenses button to get a license code and Credentials for username and password.  
 ### How it works  
-To classify movements *frozen_har.pb* can be used like shown above. The distance between a recognized gesture and a reference gesture is computed with the dynamic time warping algorithm.
+To classify movements *frozen_har.pb* can be used like shown above. The distance between a recognized gesture and a reference gesture is computed with the dynamic time warping algorithm.  
 ![notch_tutorial](data/fig/notch_tutorial.gif)
-## Credits
+## Credits  
+https://medium.com/@curiousily/human-activity-recognition-using-lstms-on-android-tensorflow-for-hackers-part-vi-492da5adef64  
+https://github.com/bartkowiaktomasz/har-wisdm-lstm-rnns
 
