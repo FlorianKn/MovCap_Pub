@@ -41,7 +41,7 @@ Run `python freezeModel.py` to freeze the model.
 Copy the generated `frozen_har.pb` into the asset folder of an android-studio project.  
 To test the frozen model, run `python testFrozenModel.py`  
   
-Most important part can be seen below:
+Most important part to include the model into android can be seen below:
 
 ```java
     private TensorFlowInferenceInterface inferenceInterface;
@@ -100,7 +100,8 @@ maven {
 To get license code, username and password login to https://wearnotch.com/login/?next=/developers/
 and navigate to dashboard. Hit details and press Licenses button to get a license code and Credentials for username and password.  
 ### How it works  
-To classify movements *frozen_har.pb* can be used like shown above. The distance between a recognized gesture and a reference gesture is computed with the dynamic time warping algorithm.  
+To classify movements `frozen_har.pb` can be used like shown above. The distance between a recognized gesture and a reference gesture is computed with the dynamic time warping algorithm.  
+  
 ![notch_tutorial](data/fig/notch_tutorial.gif)
 ## Credits  
 https://medium.com/@curiousily/human-activity-recognition-using-lstms-on-android-tensorflow-for-hackers-part-vi-492da5adef64  
