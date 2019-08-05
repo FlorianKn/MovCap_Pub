@@ -17,7 +17,7 @@ Triceps:
 ![Triceps](data/fig/TRICEPS.png) 
   
 Four movements: Biceps curls, hammer curls, reverse curls, dumbbell tricep extension  
-![Alt Text](data/fig/Motion.gif)  
+![Motion](data/fig/Motion.gif)  
 ## Prepare notch data  
 Angles of the notch sensors are stored in csv files. To put those files (Angles_RightElbow.csv and Angles_RightShoulder.csv) in an appropriate format *prepareNotchData.py* can be used. Before running the script adapt the following lines in *prepareNotchData.py*:  
 ```python
@@ -96,5 +96,6 @@ maven {
 ```
 To get license code, username and password login to https://wearnotch.com/login/?next=/developers/
 and navigate to dashboard. Hit details and press Licenses button to get a license code and Credentials for username and password.  
-### How it works
+### How it works  
+![notch_tutorial](data/fig/notch_tutorial.gif)
 

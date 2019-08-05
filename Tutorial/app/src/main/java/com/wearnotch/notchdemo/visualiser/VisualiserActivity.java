@@ -713,12 +713,13 @@ public class VisualiserActivity extends AppCompatActivity implements SeekBar.OnS
                 .append("Shoulder Rotation: ").append((int)shoulderAnglesRoot.get(1)).append("°\n")
                 // Lateral tilt (side bend) is rotation around global Z axis
                 .append("Shoulder Abduction: ").append((int)shoulderAnglesRoot.get(2)).append("°\n")
-                .append("\nRecognized Gesture: " + label + "\n")
-                .append("elbow flexion distance: " + (int) elbowFlexionDistance + "\n")
-                .append("elbow supination distance: " + (int) elbowSupinationDistance + "\n")
-                .append("shoulder flexion distance: " + (int) shoulderFlexionDistance + "\n")
-                .append("shoulder abduction distance: " + (int) shoulderAbductionDistance + "\n")
-                .append("shoulder rotation distance: " + (int) shoulderRotationDistance + "\n");
+                .append("\n\n\n\n\nPrediction:\n" + label + "\n")
+                .append("\nDistances:\n")
+                .append("Elbow flexion: " + (int) elbowFlexionDistance + "\n")
+                .append("Elbow supination: " + (int) elbowSupinationDistance + "\n")
+                .append("Shoulder flexion: " + (int) shoulderFlexionDistance + "\n")
+                .append("Shoulder abduction: " + (int) shoulderAbductionDistance + "\n")
+                .append("Shoulder rotation: " + (int) shoulderRotationDistance + "\n");
 
         mAnglesText.setText(sb.toString());
     }
